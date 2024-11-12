@@ -33,7 +33,7 @@ export function Catalog() {
   if (isLoading) return <div>Loading ...</div>;
   return (
     <>
-      <div className="text-red-600">hello</div>
+      <div className="text-red-400">hello</div>
       <div className="container">
         <div className="catalog-container">
           <Carousel />
