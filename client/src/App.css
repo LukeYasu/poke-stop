@@ -49,48 +49,34 @@ body {
   margin: 0 0.5rem;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
+.shopping-cart-ref {
+  height: 0;
+  width: 0;
 }
 
-.catalog-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: center;
-  width: 70%;
+.shopping-cart {
+  position: relative;
+  right: 800px;
+  top: -38px;
+  height: 100vh;
+  width: 808px;
+  background-color: lightblue;
+  z-index: 1;
 }
 
-.catalog-title {
-  width: 100%;
-  align-self: flex-start;
-  border-bottom: 2px solid black;
-}
-
-.catalog {
-  display: flex;
-  overflow-x: scroll;
-  width: 100%;
-  height: 380px;
-  border: 1px solid black;
+.sc-bg {
+  height: calc(100vh);
+  width: 98vw;
+  background-color: black;
+  position: absolute;
+  inset: 0;
+  opacity: 50%;
+  z-index: 1;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid lightgrey;
-  margin: 1rem;
-  padding: 0.5rem;
+  filter: drop-shadow(-10px 10px 4px lightgray);
   background-color: white;
-  width: 200px;
-}
-
-.card-img {
-  height: 200px;
 }
 
 .card-tag-ref {
@@ -98,13 +84,26 @@ body {
   width: 0;
 }
 
-.card-tag {
+.card-tag-bs,
+.card-tag-new,
+.card-tag-sale {
   position: relative;
-  width: 80px;
-  font-size: medium;
+  width: 75px;
+  margin: 0.5rem;
+  font-size: small;
   background-color: #54afff;
   padding: 3px;
   border-radius: 5px;
+}
+
+.card-tag-new {
+  width: 50px;
+  background-color: orange;
+}
+
+.card-tag-sale {
+  width: 55px;
+  background-color: red;
 }
 
 .item-count-ref {
@@ -114,18 +113,14 @@ body {
 
 .item-count {
   position: relative;
-  left: 140px;
+  left: 100px;
   bottom: 50px;
-  height: 20px;
-  width: 30px;
-  padding: 0.5rem;
+  height: 35px;
+  width: 40px;
+  padding: 0.25rem;
   font-size: larger;
   background-color: lightgray;
   border-radius: 5px;
-}
-
-.card-text {
-  /* align-self: flex-end; */
 }
 
 .carousel {
