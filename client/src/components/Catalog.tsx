@@ -1,17 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getItems } from '../lib/data';
+import { getItems, Item } from '../lib/data';
 import { CatalogCards } from './CatalogCards';
 import { Carousel } from './Carousel';
 import '../App.css';
-export type Item = {
-  itemId: number;
-  name: string;
-  price: number;
-  photoUrl: string;
-  description: string;
-  quantity: number;
-  stock: number;
-};
 
 export function Catalog() {
   const [items, setItems] = useState<Item[]>([]);
@@ -33,12 +24,11 @@ export function Catalog() {
   if (isLoading) return <div>Loading ...</div>;
   return (
     <>
-      <div className="text-red-600">hello</div>
-      <div className="container">
-        <div className="catalog-container">
+      <div className="flex w-full justify-center">
+        <div className="w-8/12">
           <Carousel />
-          <h1 className="catalog-title">catalog</h1>
-          <div className="catalog">
+          <h1 className="text-3xl mb-4 border-b-2 border-black">catalog</h1>
+          <div className="flex flex-wrap justify-center">
             {items.map((item) => (
               <CatalogCards key={item.itemId} item={item} />
             ))}
@@ -51,3 +41,5 @@ export function Catalog() {
     </>
   );
 }
+
+export type { Item };

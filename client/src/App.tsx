@@ -3,12 +3,14 @@ import './App.css';
 import { Catalog } from './components/Catalog';
 import { Header } from './components/Header';
 import { NotFound } from './components/NotFound';
+import { ItemDetails } from './components/ItemDetails';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<Catalog />} />
+        <Route path="items/:itemId" element={<ItemDetails />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
