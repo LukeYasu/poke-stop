@@ -8,6 +8,16 @@ export type Item = {
   stock: number;
 };
 
+export const carouselImages = [
+  { src: '../fire-bundle.png', alt: 'Fire Bundle' },
+  { src: '../trainer-starter-pack.png', alt: 'trainer starter pack' },
+];
+
+/**
+ *@constant bestSellers includes all the itemId for items with the tag 'best seller' in CartItems.tsx
+ *@constant newItems includes all the itemId for items with the tag 'NEW!' in CartItems.tsx
+ *@constant saleItems includes all the itemId for items with the tag 'SALE!' in CartItems.tsx
+ */
 export const bestSellers = [1, 2, 5];
 export const newItems = [7];
 export const saleItems = [{ itemId: 6, newPrice: 1600 }];
@@ -25,8 +35,3 @@ export async function getItem(itemId: number): Promise<Item> {
   const item = await response.json();
   return item;
 }
-
-export const carouselImages = [
-  { src: '../fire-bundle.png', alt: 'Fire Bundle' },
-  { src: '../trainer-starter-pack.png', alt: 'trainer starter pack' },
-];

@@ -55,6 +55,44 @@ app.get('/api/items/:itemId', async (req, res, next) => {
     next(err);
   }
 });
+
+app.put('/api/items/:itemId', async (req, res, next) => {
+  try {
+    const { name } = req.body;
+    const { itemId } = req.params;
+    const sql = `
+    update "Items"
+    set "name" = $1
+    where "itemId" = $2
+    returning *
+    `;
+    const params = [name, itemId];
+    const result = await db.query(sql, params);
+    if (!result) throw new ClientError(404, 'item not found');
+    const item = result.rows[0];
+    res.status(200).json(item);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// app.post('/api/items', async (req, res, next) => {
+//   try {
+//     const sql = `
+//     insert into "Items" ("name", "price", "photoUrl", "description", "quantity", "stock")
+// values ('Pokeball 10 Pack', 1900, 'pokeball.png','An essential part of any trainers bag. Helps you effectively catch pokémon.', 10, 1000),
+//        ('Hyper Potion', 1500, 'hyper-potion.png', 'This potion heals 200hp and is an essential part of any trainers journey to ensure that their pokemon stay safe and strong for whatever explorations you and your Pokémon embark on.', 1, 1000),
+//        ('Razz Berry', 200, 'razz-berry-3.png', 'This delicious berry attracts almost any Pokémon and it increases your chances to catch a Pokémon. This can also be a nice treat for you and your pokemon.', 3, 1000)
+// returning *
+//     `;
+//     const result = await db.query(sql);
+//     if (!result) throw new ClientError(404, 'item not found');
+//     const items = result.rows;
+//     res.status(201).json(items);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 /*
  * Handles paths that aren't handled by any other route handler.
  * It responds with `index.html` to support page refreshes with React Router.
