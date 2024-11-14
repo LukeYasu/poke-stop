@@ -3,6 +3,7 @@ import '../App.css';
 import { useEffect, useState } from 'react';
 import { bestSellers, newItems, saleItems } from '../lib/data';
 import { Link } from 'react-router-dom';
+import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 
 type Props = {
   item: Item;
@@ -25,42 +26,28 @@ export function CatalogCards({ item }: Props) {
       setSalePrice(saleItem.newPrice);
     }
   }, [item.itemId]);
-  let cardTag = <></>;
-  if (tag === 'best-seller') {
-    cardTag = <div className="card-tag-bs">Best Seller</div>;
-  } else if (tag === 'new') {
-    cardTag = <div className="card-tag-new">NEW!</div>;
-  } else if (sale) {
-    cardTag = <div className="card-tag-sale">SALE!</div>;
-  } else {
-    cardTag = <></>;
-  }
 
-  const itemQuantity =
-    item.quantity === 1 ? (
-      <></>
-    ) : (
-      <div className="item-count ">{item.quantity}</div>
-    );
-  const salePriceRender = sale ? (
-    <span>
-      <s className="text-slate-400">&#8381; {item.price}</s>
-      <span className="text-red-500"> &#8381; {salePrice}</span>
-    </span>
-  ) : (
-    <span>&#8381; {item.price}</span>
-  );
+  const cardTag = setTagVer(tag, sale);
+  const itemQuantity = toggleItemQuantity(item);
+  const salePriceRender = toggleSalePrice(item, sale, salePrice);
+
   return (
     <Link to={'/items/' + item.itemId}>
       <div
-        className="border-2 border-zinc-200 m-2 w-40 h-60 card"
+        className="border-2 border-zinc-200 m-2 w-40 h-60 card flex flex-col justify-between"
         key={item.itemId}>
         <div className="card-tag-ref">{cardTag}</div>
+        <div className="favorite-star-ref">
+          <img className="favorite-star" src="/star.png" />
+        </div>
         <img className="p-2" src={item.photoUrl} />
         <div className="item-count-ref">{itemQuantity}</div>
-        <div className="flex flex-col">
-          <h2>{item.name}</h2>
-          <p>{salePriceRender}</p>
+        <div className="flex flex-col p-1">
+          <h2 className="font-semibold">{item.name}</h2>
+          <div className="flex justify-between">
+            <p>{salePriceRender}</p>
+            <img className="w-6" src="/Add-Cart-icon.png" />
+          </div>
         </div>
       </div>
     </Link>

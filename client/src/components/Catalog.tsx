@@ -7,6 +7,7 @@ import '../App.css';
 export function Catalog() {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<unknown>();
 
   useEffect(() => {
     async function fetchItems() {
@@ -14,6 +15,7 @@ export function Catalog() {
         const result = await getItems();
         setItems(result);
       } catch (err) {
+        setError(err);
         console.error(err);
       } finally {
         setIsLoading(false);
@@ -21,7 +23,15 @@ export function Catalog() {
     }
     fetchItems();
   }, []);
+
+  if (error) {
+    console.error('Fetch error:', error);
+    return (
+      <p>Error! {error instanceof Error ? error.message : 'Unknown Error'}</p>
+    );
+  }
   if (isLoading) return <div>Loading ...</div>;
+
   return (
     <>
       <div className="flex w-full justify-center">
