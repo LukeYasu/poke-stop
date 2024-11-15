@@ -12,7 +12,13 @@ body {
   font-family: Mulish, sans-serif;
 }
 
+.page-container {
+  width: 66%;
+}
+
 .header {
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   font-size: xx-large;
@@ -21,6 +27,7 @@ body {
   width: 100%;
   justify-content: space-between;
   margin: 0;
+  z-index: 1;
 }
 
 .col-half {
@@ -79,16 +86,24 @@ body {
   background-color: white;
 }
 
+.card-cart {
+  padding: 2px;
+  width: 30px;
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 99px;
+}
+
 .card-tag-ref,
 .favorite-star-ref {
   height: 0;
-  width: 0;
+  width: 30px;
 }
 
 .favorite-star {
   position: relative;
   width: 30px;
   height: 30px;
+  left: 120px;
 }
 
 .card-tag-bs,
@@ -144,4 +159,18 @@ body {
 .carousel-img {
   height: 350px;
   margin: 1rem;
+}
+
+.card-cart:hover {
+  background-color: #ebe9e9;
+}
+
+@media screen and (width < 700px) {
+  .page-container {
+    width: 100%;
+  }
+
+  .carousel-img {
+    height: 200px;
+  }
 }

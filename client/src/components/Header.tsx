@@ -1,14 +1,9 @@
 import { Link, Outlet } from 'react-router-dom';
 import { Cart } from './Cart';
-import { useState } from 'react';
 import { useCart } from './useCart';
 
 export function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const { cart } = useCart();
-  function handleOpen() {
-    setIsOpen(!isOpen);
-  }
+  const { cart, toggleOpen, isOpen } = useCart();
 
   return (
     <div>
@@ -20,14 +15,17 @@ export function Header() {
           </Link>
         </div>
         <div className="col-half cart">
-          <img src="../star.png" className="star" />
+          <Link to={'/favorites'}>
+            <img src="../star.png" className="star" />
+          </Link>
           <img src="../user.png" className="user" />
           <img
             src="../cart.png"
             className="cart cursor-pointer"
-            onClick={handleOpen}
+            onClick={toggleOpen}
           />
-          {isOpen ? <Cart onClick={handleOpen} item={cart} /> : <></>}
+          <div>{cart.length}</div>
+          {isOpen ? <Cart onClick={toggleOpen} items={cart} /> : <></>}
         </div>
       </div>
       <Outlet />

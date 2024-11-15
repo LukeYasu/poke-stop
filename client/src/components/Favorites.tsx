@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getItems, Item } from '../lib/data';
 import { CatalogCards } from './CatalogCards';
-import { Carousel } from './Carousel';
-import '../App.css';
+import { getItems, Item } from '../lib/data';
 
-export function Catalog() {
+export function Favorites() {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
@@ -31,25 +29,10 @@ export function Catalog() {
     );
   }
   if (isLoading) return <div>Loading ...</div>;
-
   return (
-    <>
-      <div className="flex w-full justify-center">
-        <div className="page-container">
-          <Carousel />
-          <h1 className="text-3xl mb-4 border-b-2 border-black">catalog</h1>
-          <div className="flex flex-wrap justify-center">
-            {items.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
-            ))}
-            {items.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
+    <div>
+      <div>Favorites</div>
+      <CatalogCards item={items[0]} />
+    </div>
   );
 }
-
-export type { Item };

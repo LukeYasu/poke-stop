@@ -1,17 +1,21 @@
 import { CartItems } from './CartItems';
 import { Item } from '../lib/data';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from './useCart';
 
 // import { useState } from 'react';
 type Props = {
   onClick: () => void;
-  item: Item[];
+  items: Item[];
 };
-export function Cart({ onClick, item }: Props) {
+export function Cart({ onClick, items }: Props) {
   const navigate = useNavigate();
+  const { toggleOpen, clearCart } = useCart();
 
   function handleCheckout() {
     alert('successful checkout');
+    toggleOpen();
+    clearCart();
     navigate('/');
   }
   return (
@@ -25,7 +29,7 @@ export function Cart({ onClick, item }: Props) {
           </button>
         </div>
         <div>
-          <CartItems cartItem={item} />
+          <CartItems cartItems={items} />
         </div>
         <button
           className="border-2 border-black bg-slate-200 m-1 w-36 h-8 leading-3 self-center"
