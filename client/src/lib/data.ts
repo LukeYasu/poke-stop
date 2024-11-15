@@ -1,3 +1,6 @@
+import { CartItem } from '../components/cartContext';
+import { User } from '../components/UserContext';
+
 export type Item = {
   itemId: number;
   name: string;
@@ -33,69 +36,58 @@ export async function getItem(itemId: number): Promise<Item> {
   const item = await response.json();
   return item;
 }
+const authKey = 'um.auth';
 
-// const [cartItems, setCartItems] = useState<
-//   (Item & { effectivePrice: number })[]
-// >([]);
+type Auth = {
+  user: User;
+  token: string;
+};
 
-// useEffect(() => {
-//   const mergedItems: (Item & { effectivePrice: number })[] = [];
+export function saveAuth(user: User, token: string): void {
+  const auth: Auth = { user, token };
+  localStorage.setItem(authKey, JSON.stringify(auth));
+}
 
-//   cartItem.forEach((item) => {
-//     const duplicateItem = mergedItems.find((i) => i.itemId === item.itemId);
-//     const cartSaleItem = saleItems.find(
-//       (sale) => sale.itemId === item.itemId
-//     );
-//     if (duplicateItem) {
-//       duplicateItem.quantity += item.quantity;
-//       duplicateItem.price += item.price;
+export function removeAuth(): void {
+  localStorage.removeItem(authKey);
+}
 
-//       if (cartSaleItem) {
-//         duplicateItem.effectivePrice += cartSaleItem.newPrice * item.quantity;
-//       } else {
-//         duplicateItem.effectivePrice += item.price;
-//       }
-//     } else {
-//       mergedItems.push({
-//         ...item,
-//         effectivePrice: cartSaleItem
-//           ? cartSaleItem.newPrice * item.quantity
-//           : item.price * item.quantity,
-//       });
-//     }
-//   });
-//   setCartItems(mergedItems);
-// }, [cartItem]);
+export function readUser(): User | undefined {
+  const auth = localStorage.getItem(authKey);
+  if (!auth) return undefined;
+  return (JSON.parse(auth) as Auth).user;
+}
 
-// function handleDecrementQuantity(itemId: number) {
-//   setCartItems((prev) =>
-//     prev.map((item) =>
-//       item.itemId === itemId && item.quantity > 1
-//         ? {
-//             ...item,
-//             quantity: item.quantity - 1,
-//             effectivePrice:
-//               item.effectivePrice - item.effectivePrice / item.quantity,
-//           }
-//         : item
-//     )
-//   );
-// }
+export function readToken(): string | undefined {
+  const auth = localStorage.getItem(authKey);
+  if (!auth) return undefined;
+  return (JSON.parse(auth) as Auth).token;
+}
 
-// function handleIncrementQuantity(itemId: number) {
-//   setCartItems((prev) =>
-//     prev.map((item) =>
-//       item.itemId === itemId
-//         ? {
-//             ...item,
-//             quantity: item.quantity + 1,
-//             effectivePrice:
-//               item.effectivePrice + item.effectivePrice / item.quantity,
-//           }
-//         : item
-//     )
-//   );
-// }
-// function handleDelete(itemId: number) {
-//   setCartItems((prev)=>cartItems.splice(cartItems[findIndex(i)=>i.itemId === itemId],1));
-// }
+export async function insertCart(cartItem: CartItem) {
+  const req = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${readToken()}`,
+    },
+    body: JSON.stringify(cartItem),
+  };
+  const res = await fetch('api/cart-items', req);
+  if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+  return (await res.json()) as CartItem;
+}
+
+export async function updateCart(cartItem: CartItem) {
+  const req = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${readToken()}`,
+    },
+    body: JSON.stringify(cartItem),
+  };
+  const res = await fetch('api/cart-items', req);
+  if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+  return (await res.json()) as CartItem;
+}

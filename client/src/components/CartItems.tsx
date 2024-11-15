@@ -18,8 +18,11 @@ export function CartItems({ cartItems }: Props) {
     <div>
       {cartItems.map((item) =>
         item.quantity ? (
-          <div className="flex">
-            <img src={'/' + item?.photoUrl} />
+          <div className="flex items-center justify-evenly bg-white m-2 rounded-md">
+            <img
+              src={'/' + item?.photoUrl}
+              className="bg-white rounded-md m-2 border-2 border-slate-200"
+            />
             <div>{item?.name}</div>
             <div>&nbsp;&#8381;{item.price * item.quantity}</div>
             <button
