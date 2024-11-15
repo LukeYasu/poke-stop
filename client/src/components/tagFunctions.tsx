@@ -31,6 +31,8 @@ export function toggleItemQuantity(item: Item) {
   return item.quantity === 1 ? (
     <></>
   ) : (
-    <div className="item-count ">{item.quantity}x</div>
+    <div className="item-count">
+      <div>{item.quantity}x</div>
+    </div>
   );
 }

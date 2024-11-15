@@ -19,7 +19,7 @@ CREATE TABLE "Items" (
 
 CREATE TABLE "Users" (
   "userId" serial PRIMARY KEY,
-  "username" varchar,
+  "username" varchar unique,
   "hashedPassword" text,
   "createdAt" timestamptz
 );
@@ -28,14 +28,16 @@ CREATE TABLE "Cart" (
   "cartId" serial PRIMARY KEY,
   "userId" integer,
   "itemId" integer,
-  "quantity" integer
+  "quantity" integer,
+  "total" integer
 );
 
 CREATE TABLE "Order" (
   "orderId" serial PRIMARY KEY,
   "itemId" integer,
   "userId" integer,
-  "quantity" integer
+  "quantity" integer,
+  "total" integer
 );
 
 CREATE TABLE "Favorites" (
