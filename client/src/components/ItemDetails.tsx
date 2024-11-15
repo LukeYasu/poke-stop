@@ -11,7 +11,7 @@ export function ItemDetails() {
   const [count, setCount] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
-  const { addToCart } = useCart();
+  const { addToCart, toggleOpen } = useCart();
 
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
@@ -75,8 +75,10 @@ export function ItemDetails() {
 
   function handleAddToCart() {
     if (!item) throw new Error('item not found');
-    addToCart(item);
+    addToCart(item, count);
+    toggleOpen();
   }
+
   return (
     <div className="flex justify-evenly items-center mt-24">
       <img src={'/' + item.photoUrl} className="w-1/4 border-2" />

@@ -1,9 +1,10 @@
 import { type Item } from './Catalog';
 import '../App.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bestSellers, newItems, saleItems } from '../lib/data';
 import { Link } from 'react-router-dom';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
+import { useCart } from './useCart';
 
 type Props = {
   item: Item;
@@ -13,6 +14,8 @@ export function CatalogCards({ item }: Props) {
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
   const [salePrice, setSalePrice] = useState<number | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { toggleOpen, addToCart } = useCart();
 
   useEffect(() => {
     if (bestSellers.includes(item.itemId)) {
@@ -31,6 +34,17 @@ export function CatalogCards({ item }: Props) {
   const itemQuantity = toggleItemQuantity(item);
   const salePriceRender = toggleSalePrice(item, sale, salePrice);
 
+  function handleFavorite(e: React.MouseEvent) {
+    e.preventDefault();
+    setIsFavorite(!isFavorite);
+  }
+
+  function cartCartClick(e: React.MouseEvent) {
+    e.preventDefault();
+    toggleOpen();
+    addToCart(item, 1);
+  }
+
   return (
     <Link to={'/items/' + item.itemId}>
       <div
@@ -38,7 +52,19 @@ export function CatalogCards({ item }: Props) {
         key={item.itemId}>
         <div className="card-tag-ref">{cardTag}</div>
         <div className="favorite-star-ref">
-          <img className="favorite-star" src="/star.png" />
+          {isFavorite ? (
+            <img
+              className="favorite-star"
+              src="/star-solid.png"
+              onClick={handleFavorite}
+            />
+          ) : (
+            <img
+              className="favorite-star"
+              src="/star.png"
+              onClick={handleFavorite}
+            />
+          )}
         </div>
         <img className="p-2" src={item.photoUrl} />
         <div className="item-count-ref">{itemQuantity}</div>
@@ -46,7 +72,11 @@ export function CatalogCards({ item }: Props) {
           <h2 className="font-semibold">{item.name}</h2>
           <div className="flex justify-between">
             <p>{salePriceRender}</p>
-            <img className="w-6" src="/Add-Cart-icon.png" />
+            <img
+              className="card-cart"
+              src="/Add-Cart-icon.png"
+              onClick={cartCartClick}
+            />
           </div>
         </div>
       </div>

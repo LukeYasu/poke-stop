@@ -1,41 +1,60 @@
 import { useEffect, useState } from 'react';
-import { Item } from '../lib/data';
+import { CartItem } from './cartContext';
+import { useCart } from './useCart';
 
 type Props = {
-  cartItem: Item[];
+  cartItems: CartItem[];
 };
 
-export function CartItems({ cartItem }: Props) {
-  const [items, setItems] = useState<Item[]>([]);
-  const [itemCount, setItemCount] = useState(0);
+export function CartItems({ cartItems }: Props) {
+  const [total, setTotal] = useState(0);
+  const { addToCart } = useCart();
 
-  useEffect(() => {
-    const mergedItems: Item[] = [];
-    cartItem.forEach((item) => {
-      const thisItem = mergedItems.find((i) => i.itemId === item.itemId);
-      if (thisItem) {
-        thisItem.quantity += item.quantity;
-        thisItem.price += item.price;
-        setItemCount((prev) => prev + 1);
-      } else {
-        mergedItems.push({ ...item });
-      }
-    });
-    setItems(mergedItems);
-  }, [cartItem]);
-
-  return items.map((item) => (
-    <div className="flex">
-      <img src={'/' + item?.photoUrl} />
-      <div>{item?.name}</div>
-      <div>&#8381; {item.price}</div>
-      <button className="border-2 border-black bg-slate-200 m-1 w-8 h-8 leading-3">
-        -
-      </button>
-      <div> count: {itemCount}</div>
-      <button className="border-2 border-black bg-slate-200 m-1 w-8 h-8 leading-3">
-        +
-      </button>
+  function handleTotal() {
+    cartItems.forEach((i) => setTotal(i.price * i.quantity));
+  }
+  useEffect(() => handleTotal());
+  return (
+    <div>
+      {cartItems.map((item) =>
+        item.quantity ? (
+          <div className="flex">
+            <img src={'/' + item?.photoUrl} />
+            <div>{item?.name}</div>
+            <div>&nbsp;&#8381;{item.price * item.quantity}</div>
+            <button
+              className="border-2 border-black bg-slate-200 m-1 w-8 h-8 leading-3"
+              onClick={() => {
+                if (item.quantity > 1) {
+                  addToCart(item, -1);
+                }
+                handleTotal();
+              }}>
+              -
+            </button>
+            <div> count: {item.quantity}</div>
+            <button
+              className="border-2 border-black bg-slate-200 m-1 w-8 h-8 leading-3"
+              onClick={() => {
+                addToCart(item, 1);
+                handleTotal();
+              }}>
+              +
+            </button>
+            <button
+              className="border-2 border-black bg-slate-200 m-1 w-30 h-8 leading-3"
+              onClick={() => {
+                addToCart(item, -item.quantity);
+                handleTotal();
+              }}>
+              Delete
+            </button>
+          </div>
+        ) : (
+          <></>
+        )
+      )}
+      <div>Total:&nbsp;&#8381;{total}</div>
     </div>
-  ));
+  );
 }
