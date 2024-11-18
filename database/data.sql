@@ -20,5 +20,5 @@ values ('Pokeball', 100, 'pokeball.png', 'An essential part of any trainers bag.
        ('Dusk Stone', 2100, 'duskstone.png', 'lets you evolve certain dark type Pokémon to give your partner a boost in their evolution and training journey.', 1, 1000),
        ('Pokeball 10 Pack', 1900, 'pokeball.png','An essential part of any trainers bag. Helps you effectively catch pokémon.', 10, 1000),
        ('Hyper Potion', 1500, 'hyper-potion.png', 'This potion heals 200hp and is an essential part of any trainers journey to ensure that their pokemon stay safe and strong for whatever explorations you and your Pokémon embark on.', 1, 1000),
-       ('Razz Berry', 200, 'razz-berry-3.png', 'This delicious berry attracts almost any Pokémon and it increases your chances to catch a Pokémon. This can also be a nice treat for you and your pokemon.', 3, 1000)
+       ('Razz Berry 3 Pack', 200, 'razz-berry-3.png', 'This delicious berry attracts almost any Pokémon and it increases your chances to catch a Pokémon. This can also be a nice treat for you and your pokemon.', 3, 1000)
 returning *

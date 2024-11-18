@@ -95,6 +95,14 @@ body {
   z-index: 1;
 }
 
+.logged-in-box {
+  position: relative;
+  width: 300px;
+  right: 300px;
+  top: 35px;
+  background-color: #3399f2;
+}
+
 .card {
   filter: drop-shadow(-10px 10px 4px lightgray);
   background-color: white;
@@ -183,7 +191,7 @@ body {
   background-color: #ebe9e9;
 }
 
-@media screen and (width < 700px) {
+@media screen and (width < 800px) {
   .page-container {
     width: 100%;
   }

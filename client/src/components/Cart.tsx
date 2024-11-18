@@ -3,7 +3,6 @@ import { Item } from '../lib/data';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from './useCart';
 
-// import { useState } from 'react';
 type Props = {
   onClick: () => void;
   items: Item[];

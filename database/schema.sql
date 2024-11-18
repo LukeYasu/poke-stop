@@ -28,16 +28,14 @@ CREATE TABLE "Cart" (
   "cartId" serial PRIMARY KEY,
   "userId" integer,
   "itemId" integer,
-  "quantity" integer,
-  "total" integer
+  "quantity" integer
 );
 
 CREATE TABLE "Order" (
   "orderId" serial PRIMARY KEY,
   "itemId" integer,
   "userId" integer,
-  "quantity" integer,
-  "total" integer
+  "quantity" integer
 );
 
 CREATE TABLE "Favorites" (
