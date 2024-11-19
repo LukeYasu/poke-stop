@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useCart } from './useCart';
+import { useUser } from './useUser';
 
 type Props = {
   item: Item;
@@ -39,15 +40,17 @@ export function CatalogCards({ item }: Props) {
   const cardTag = setTagVer(tag, sale);
   const itemQuantity = toggleItemQuantity(item);
   const salePriceRender = toggleSalePrice(item, sale, salePrice);
-
+  const { user } = useUser();
   async function handleFavorite(e: React.MouseEvent) {
     try {
       e.preventDefault();
       setIsFavorite(!isFavorite);
-      if (isFavorite) {
-        await insertFavorites(item.itemId);
-      } else {
-        await deleteFavorites(item.itemId);
+      if (user) {
+        if (isFavorite) {
+          await insertFavorites(item.itemId);
+        } else {
+          await deleteFavorites(item.itemId);
+        }
       }
     } catch (err) {
       throw new Error(`Error: ${err}`);

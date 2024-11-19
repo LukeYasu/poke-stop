@@ -10,23 +10,12 @@ type Props = {
 export function CartItems({ cartItems }: Props) {
   const [total, setTotal] = useState(0);
   const { addToCart } = useCart();
-  // const [displayedCart, setDisplayedCart] = useState<CartItem[]>([]);
 
   function handleTotal() {
     cartItems.forEach((i) => setTotal(i.price * i.quantity));
   }
   useEffect(() => handleTotal());
-  // useEffect(() => {
-  //   async function fetchCartData() {
-  //     try {
-  //       const fetchedCart = await fetch('/api/cart-items');
-  //       setDisplayedCart([...cartItems, ...fetchedCart]);
-  //     } catch (err) {
-  //       throw new Error(`Error: ${err}`);
-  //     }
-  //   }
-  //   fetchCartData();
-  // }, [cartItems]);
+
   return (
     <div>
       {cartItems.map((item) =>

@@ -23,7 +23,7 @@ export const newItems = [7];
 /** includes all the itemId for items with the tag 'SALE!' in CartItems.tsx */
 export const saleItems = [{ itemId: 6, newPrice: 1600 }];
 
-export const healsId = [9, 10];
+export const consumablesId = [9, 10];
 export const captureBalls = [1, 2, 3, 8];
 export const evoStones = [4, 5, 6, 7];
 
@@ -78,7 +78,7 @@ export async function readCart() {
   };
   const res = await fetch('/api/cart-items', req);
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
-  return (await res.json()) as CartItem;
+  return (await res.json()) as CartItem[];
 }
 
 export async function insertCart(cartItem: CartItem) {
@@ -116,9 +116,8 @@ export async function deleteCart(itemId: number) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${readToken()}`,
     },
-    body: JSON.stringify(itemId),
   };
-  const res = await fetch('/api/cart-items', req);
+  const res = await fetch(`/api/cart-items/${itemId}`, req);
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
 }
 

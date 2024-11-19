@@ -1,5 +1,12 @@
-import { createContext, ReactNode, useState } from 'react';
-import { deleteCart, insertCart, Item, updateCart } from '../lib/data';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+  deleteCart,
+  insertCart,
+  Item,
+  readCart,
+  updateCart,
+} from '../lib/data';
+import { useUser } from './useUser';
 
 export type CartValue = {
   cart: CartItem[];
@@ -29,21 +36,41 @@ type Props = {
 export function CartProvider({ children }: Props) {
   const [cartContents, setCartContents] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
+  useEffect(() => {
+    async function loadCart() {
+      try {
+        if (user) {
+          const loadedCartItems = await readCart();
+          setCartContents(loadedCartItems);
+          console.log(loadedCartItems);
+        }
+      } catch (err) {
+        throw new Error(`Error: ${err}`);
+      }
+    }
+    loadCart();
+  }, [user]);
+
   async function addItem(item: Item, quantity: number) {
     const dupeItem = cartContents.find((i) => i.itemId === item.itemId);
     if (dupeItem) {
       const newQuantity = dupeItem.quantity + quantity;
+      const mergedItems = cartContents.map((i) =>
+        i.itemId === dupeItem.itemId
+          ? { ...dupeItem, quantity: newQuantity }
+          : i
+      );
       if (newQuantity === 0) {
         await deleteDB(item.itemId);
-      } else {
-        const mergedItems = cartContents.map((i) =>
-          i.itemId === dupeItem.itemId
-            ? { ...dupeItem, quantity: newQuantity }
-            : i
+        const deleteIndex = mergedItems.findIndex(
+          (i) => i.itemId === item.itemId
         );
-        setCartContents(mergedItems);
+        setCartContents(mergedItems.splice(deleteIndex, 1));
+      } else {
         await updateCartDB({ ...item, quantity: newQuantity });
       }
+      setCartContents(mergedItems);
     } else {
       const cartItem = { ...item, quantity };
       setCartContents((prev) => [...prev, cartItem]);

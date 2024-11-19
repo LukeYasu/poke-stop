@@ -8,7 +8,7 @@ export function Favorites() {
   const [error, setError] = useState<unknown>();
 
   useEffect(() => {
-    async function fetchItems() {
+    async function fetchFavorites() {
       try {
         const result = await readFavorites();
         setItems(result);
@@ -19,7 +19,7 @@ export function Favorites() {
         setIsLoading(false);
       }
     }
-    fetchItems();
+    fetchFavorites();
   }, []);
 
   if (error) {

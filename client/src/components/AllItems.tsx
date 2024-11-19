@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Item } from './Catalog';
 import { CatalogCards } from './CatalogCards';
-import { captureBalls, evoStones, getItems, healsId } from '../lib/data';
+import { captureBalls, consumablesId, evoStones, getItems } from '../lib/data';
 
 export function AllItems() {
   const [items, setItems] = useState<Item[]>([]);
@@ -42,14 +42,14 @@ export function AllItems() {
     let filtered = items.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredItems(filtered);
-    if (filterValue === 'Heals') {
-      filtered = filtered.filter((item) => healsId.includes(item.itemId));
+    if (filterValue === 'Consumables') {
+      filtered = filtered.filter((item) => consumablesId.includes(item.itemId));
     } else if (filterValue === 'Capture Balls') {
       filtered = filtered.filter((item) => captureBalls.includes(item.itemId));
     } else if (filterValue === 'Evo Stones') {
       filtered = filtered.filter((item) => evoStones.includes(item.itemId));
     }
+    setFilteredItems(filtered);
   }
 
   console.log(filterRef.current?.value);
@@ -73,8 +73,8 @@ export function AllItems() {
               className="m-2  border-2 border-black"
               ref={filterRef}
               onChange={handleSearch}>
-              <option></option>
-              <option>Heals</option>
+              <option>All</option>
+              <option>Consumables</option>
               <option>Capture Balls</option>
               <option>Evo Stones</option>
             </select>

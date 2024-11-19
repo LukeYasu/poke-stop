@@ -147,6 +147,7 @@ app.get('/api/cart-items', authMiddleware, async (req, res, next) => {
     const sql = `
     select *
     from "Cart"
+    join "Items" using ("itemId")
     where "userId" = $1
     `;
     const params = [req.user?.userId];
@@ -195,24 +196,28 @@ app.put('/api/cart-items', authMiddleware, async (req, res, next) => {
   }
 });
 
-app.delete('/api/cart-items', authMiddleware, async (req, res, next) => {
-  try {
-    const { itemId } = req.body;
-    const sql = `
+app.delete(
+  '/api/cart-items/:itemId',
+  authMiddleware,
+  async (req, res, next) => {
+    try {
+      const { itemId } = req.params;
+      const sql = `
     delete
     from "Cart"
     where "itemId" = $1 and "userId" = $2
     returning *
     `;
-    const params = [itemId, req.user?.userId];
-    const result = await db.query(sql, params);
-    const deletedItem = result.rows[0];
-    if (!deletedItem) throw new ClientError(404, 'no item');
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
+      const params = [itemId, req.user?.userId];
+      const result = await db.query(sql, params);
+      const deletedItem = result.rows[0];
+      if (!deletedItem) throw new ClientError(404, 'no item');
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 app.get('/api/favorites', authMiddleware, async (req, res, next) => {
   try {
