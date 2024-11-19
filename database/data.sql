@@ -28,5 +28,7 @@ values ('Pokeball', 100, 'pokeball.png', 'An essential part of any trainers bag.
        ('Potion', 250, 'potion.png', 'This potion heals 20hp and is an essential part of any trainers journey to ensure that their pokemon stay safe and strong for whatever explorations you and your Pokémon embark on.', 1,1000),
        ('Super Potion', 250, 'superpotion.png', 'This potion heals 50hp and is an essential part of any trainers journey to ensure that their pokemon stay safe and strong for whatever explorations you and your Pokémon embark on.', 1,1000),
        ('Max Potion', 250, 'maxpotion.png', 'This potion heals to full HP and is an essential part of any trainers journey to ensure that their pokemon stay safe and strong for whatever explorations you and your Pokémon embark on.', 1,1000),
+       ('Revive', 1000, 'revive.png', 'An essential item that can recover your fainted pokemon in the case of an emergency.', 1,1000),
+       ('Max Revive', 2000, 'maxrevive.png', 'An essential item that can recover your fainted pokemon in the case of an emergency.', 1,1000),
 
 returning *
