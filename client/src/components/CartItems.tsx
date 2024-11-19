@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CartItem } from './cartContext';
 import { useCart } from './useCart';
+import { deleteCart } from '../lib/data';
 
 type Props = {
   cartItems: CartItem[];
@@ -14,6 +15,7 @@ export function CartItems({ cartItems }: Props) {
     cartItems.forEach((i) => setTotal(i.price * i.quantity));
   }
   useEffect(() => handleTotal());
+
   return (
     <div>
       {cartItems.map((item) =>
@@ -48,6 +50,7 @@ export function CartItems({ cartItems }: Props) {
               className="border-2 border-black bg-slate-200 m-1 w-30 h-8 leading-3"
               onClick={() => {
                 addToCart(item, -item.quantity);
+                deleteCart(item.itemId);
                 handleTotal();
               }}>
               Delete

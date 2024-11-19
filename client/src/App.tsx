@@ -9,6 +9,7 @@ import { Favorites } from './components/Favorites';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
 import { UserProvider } from './components/UserContext';
+import { AllItems } from './components/AllItems';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route index element={<Catalog />} />
             <Route path="items/:itemId" element={<ItemDetails />} />
             <Route path="favorites" element={<Favorites />} />
+            <Route path="all-items" element={<AllItems />} />
             <Route path="sign-in" element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="*" element={<NotFound />} />

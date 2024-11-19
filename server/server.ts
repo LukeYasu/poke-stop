@@ -147,6 +147,7 @@ app.get('/api/cart-items', authMiddleware, async (req, res, next) => {
     const sql = `
     select *
     from "Cart"
+    join "Items" using ("itemId")
     where "userId" = $1
     `;
     const params = [req.user?.userId];
@@ -161,13 +162,13 @@ app.get('/api/cart-items', authMiddleware, async (req, res, next) => {
 
 app.post('/api/cart-items', authMiddleware, async (req, res, next) => {
   try {
-    const { itemId, quantity, total } = req.body;
+    const { itemId, quantity } = req.body;
     const sql = `
-    insert into "Cart" ("userId", "itemId", "quantity", "total")
-    values ($1, $2, $3, $4)
+    insert into "Cart" ("userId", "itemId", "quantity")
+    values ($1, $2, $3)
     returning *
     `;
-    const params = [req.user?.userId, itemId, quantity, total];
+    const params = [req.user?.userId, itemId, quantity];
     const result = await db.query(sql, params);
     if (!result) throw new ClientError(404, 'item not found');
     const item = result.rows;
@@ -179,14 +180,13 @@ app.post('/api/cart-items', authMiddleware, async (req, res, next) => {
 
 app.put('/api/cart-items', authMiddleware, async (req, res, next) => {
   try {
-    const { itemId, cartId, quantity, total } = req.body;
+    const { itemId, quantity } = req.body;
     const sql = `
     update "Cart"
     set "quantity" = $1
-        "total" = $2
-    where "itemId" = $3 and "cartId" = $4 and "userId" = $5
+    where "itemId" = $2 and "userId" = $3
     `;
-    const params = [quantity, total, itemId, cartId, req.user?.userId];
+    const params = [quantity, itemId, req.user?.userId];
     const result = await db.query(sql, params);
     if (!result) throw new ClientError(404, 'item not found');
     const item = result.rows;
@@ -196,17 +196,76 @@ app.put('/api/cart-items', authMiddleware, async (req, res, next) => {
   }
 });
 
-app.delete('api/cart-items', authMiddleware, async (req, res, next) => {
-  try {
-    const { itemId } = req.body;
-    const sql = `
+app.delete(
+  '/api/cart-items/:itemId',
+  authMiddleware,
+  async (req, res, next) => {
+    try {
+      const { itemId } = req.params;
+      const sql = `
     delete
     from "Cart"
     where "itemId" = $1 and "userId" = $2
     returning *
     `;
-    const params = [itemId, req.user?.userId];
-    await db.query(sql, params);
+      const params = [itemId, req.user?.userId];
+      const result = await db.query(sql, params);
+      const deletedItem = result.rows[0];
+      if (!deletedItem) throw new ClientError(404, 'no item');
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+app.get('/api/favorites', authMiddleware, async (req, res, next) => {
+  try {
+    const sql = `
+    select *
+    from "Favorites"
+    where "userId" = $1
+    `;
+    const params = [req.user?.userId];
+    const result = await db.query(sql, params);
+    if (!result) throw new ClientError(404, 'Favorites not found');
+    const favItems = result.rows;
+    res.send(200).json(favItems);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/favorites', authMiddleware, async (req, res, next) => {
+  const { itemId } = req.body;
+  try {
+    const sql = `
+    insert into "Favorites" ("userId", "itemId")
+    values($1, $2)
+    returning *
+    `;
+    const params = [req.user?.userId, itemId];
+    const result = await db.query(sql, params);
+    if (!result) throw new ClientError(404, 'favorite item not found');
+    const favItem = result.rows[0];
+    res.send(201).json(favItem);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.delete('/api/favorites', authMiddleware, async (req, res, next) => {
+  const { itemId } = req.body;
+  try {
+    const sql = `
+    delete
+    from "Favorites"
+    where "userId" = $1 and "itemId" = $2
+    returning *
+    `;
+    const params = [req.user?.userId, itemId];
+    const result = await db.query(sql, params);
+    if (!result) throw new ClientError(404, 'favorite item not found');
     res.sendStatus(204);
   } catch (err) {
     next(err);

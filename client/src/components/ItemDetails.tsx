@@ -19,20 +19,20 @@ export function ItemDetails() {
 
   const cachedFn = useCallback(
     function settingTags() {
-      if (item) {
-        if (bestSellers.includes(item.itemId)) {
+      if (itemId) {
+        if (bestSellers.includes(+itemId)) {
           setTag('best-seller');
-        } else if (newItems.includes(item.itemId)) {
+        } else if (newItems.includes(+itemId)) {
           setTag('new');
         }
-        const saleItem = saleItems.find(({ itemId }) => itemId === item.itemId);
+        const saleItem = saleItems.find(({ itemId: id }) => +itemId === id);
         if (saleItem) {
           setSale(true);
           setSalePrice(saleItem.newPrice);
         }
       }
     },
-    [item]
+    [itemId]
   );
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function ItemDetails() {
       }
     }
     fetchItem();
-  }, [item, itemId, cachedFn]);
+  }, [itemId, cachedFn]);
 
   if (isLoading) return <>Loading...</>;
   if (error) {

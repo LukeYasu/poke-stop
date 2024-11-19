@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CatalogCards } from './CatalogCards';
-import { getItems, Item } from '../lib/data';
+import { Item, readFavorites } from '../lib/data';
 
 export function Favorites() {
   const [items, setItems] = useState<Item[]>([]);
@@ -8,9 +8,9 @@ export function Favorites() {
   const [error, setError] = useState<unknown>();
 
   useEffect(() => {
-    async function fetchItems() {
+    async function fetchFavorites() {
       try {
-        const result = await getItems();
+        const result = await readFavorites();
         setItems(result);
       } catch (err) {
         setError(err);
@@ -19,7 +19,7 @@ export function Favorites() {
         setIsLoading(false);
       }
     }
-    fetchItems();
+    fetchFavorites();
   }, []);
 
   if (error) {
@@ -32,7 +32,13 @@ export function Favorites() {
   return (
     <div>
       <div>Favorites</div>
-      <CatalogCards item={items[0]} />
+      <div>
+        {items ? (
+          items.map((item) => <CatalogCards key={item.itemId} item={item} />)
+        ) : (
+          <div>No Favorites</div>
+        )}
+      </div>
     </div>
   );
 }

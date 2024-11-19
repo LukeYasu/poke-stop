@@ -1,10 +1,17 @@
 import { type Item } from './Catalog';
 import '../App.css';
 import React, { useEffect, useState } from 'react';
-import { bestSellers, newItems, saleItems } from '../lib/data';
+import {
+  bestSellers,
+  deleteFavorites,
+  insertFavorites,
+  newItems,
+  saleItems,
+} from '../lib/data';
 import { Link } from 'react-router-dom';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useCart } from './useCart';
+import { useUser } from './useUser';
 
 type Props = {
   item: Item;
@@ -33,10 +40,21 @@ export function CatalogCards({ item }: Props) {
   const cardTag = setTagVer(tag, sale);
   const itemQuantity = toggleItemQuantity(item);
   const salePriceRender = toggleSalePrice(item, sale, salePrice);
-
-  function handleFavorite(e: React.MouseEvent) {
-    e.preventDefault();
-    setIsFavorite(!isFavorite);
+  const { user } = useUser();
+  async function handleFavorite(e: React.MouseEvent) {
+    try {
+      e.preventDefault();
+      setIsFavorite(!isFavorite);
+      if (user) {
+        if (isFavorite) {
+          await insertFavorites(item.itemId);
+        } else {
+          await deleteFavorites(item.itemId);
+        }
+      }
+    } catch (err) {
+      throw new Error(`Error: ${err}`);
+    }
   }
 
   function cartCartClick(e: React.MouseEvent) {
