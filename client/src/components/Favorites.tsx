@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { CatalogCards } from './CatalogCards';
 import { Item, readFavorites } from '../lib/data';
+import { useFav } from './useFav';
+import { useUser } from './useUser';
 
 export function Favorites() {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
-
+  const { favItemIds } = useFav();
+  const { user } = useUser();
   useEffect(() => {
     async function fetchFavorites() {
       try {
@@ -29,14 +32,17 @@ export function Favorites() {
     );
   }
   if (isLoading) return <div>Loading ...</div>;
+  if (!user) return <div>Sign in to use favorites</div>;
   return (
     <div>
-      <div>Favorites</div>
-      <div>
-        {items ? (
-          items.map((item) => <CatalogCards key={item.itemId} item={item} />)
+      <div className="text-3xl border-black border-b-2 m-4">Favorites</div>
+      <div className="w-full h-full flex">
+        {items.length !== 0 ? (
+          items.map((item) => (
+            <CatalogCards key={item.itemId} item={item} favIds={favItemIds} />
+          ))
         ) : (
-          <div>No Favorites</div>
+          <div className="m-4">No Favorites</div>
         )}
       </div>
     </div>

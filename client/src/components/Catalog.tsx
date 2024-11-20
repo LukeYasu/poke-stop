@@ -3,12 +3,13 @@ import { getItems, Item } from '../lib/data';
 import { CatalogCards } from './CatalogCards';
 import { Carousel } from './Carousel';
 import '../App.css';
+import { useFav } from './useFav';
 
 export function Catalog() {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
-
+  const { favItemIds } = useFav();
   useEffect(() => {
     async function fetchItems() {
       try {
@@ -40,10 +41,10 @@ export function Catalog() {
           <h1 className="text-3xl mb-4 border-b-2 border-black">catalog</h1>
           <div className="flex flex-wrap justify-center">
             {items.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
+              <CatalogCards key={item.itemId} item={item} favIds={favItemIds} />
             ))}
             {items.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
+              <CatalogCards key={item.itemId} item={item} favIds={favItemIds} />
             ))}
           </div>
         </div>

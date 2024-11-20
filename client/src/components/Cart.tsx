@@ -1,15 +1,15 @@
 import { CartItems } from './CartItems';
-import { Item } from '../lib/data';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from './useCart';
+import { CartItem } from './cartContext';
 
 type Props = {
   onClick: () => void;
-  items: Item[];
+  items: CartItem[];
 };
 export function Cart({ onClick, items }: Props) {
   const navigate = useNavigate();
-  const { toggleOpen, clearCart } = useCart();
+  const { toggleOpen, clearCart, isOpen } = useCart();
 
   function handleCheckout() {
     alert('successful checkout');
@@ -19,8 +19,16 @@ export function Cart({ onClick, items }: Props) {
   }
   return (
     <div className="shopping-cart-ref">
-      <div className="sc-bg" onClick={onClick}></div>
-      <div className="shopping-cart flex flex-col h-full justify-between">
+      <div
+        // className={isOpen ? 'sc-bg sc-bg-open' : 'sc-bg sc-bg-close'}
+        onClick={onClick}></div>
+
+      <div
+        className={
+          isOpen
+            ? 'cart-popup-open shopping-cart flex flex-col h-full justify-between drop-shadow-2xl'
+            : 'cart-popup-close shopping-cart flex flex-col h-full justify-between drop-shadow-2xl'
+        }>
         <div>
           <div className="flex justify-between">
             <div className="bg-white w-full p-2 flex justify-between border-b-2 border-black">

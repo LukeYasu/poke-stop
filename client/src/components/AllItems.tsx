@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Item } from './Catalog';
 import { CatalogCards } from './CatalogCards';
-import { captureBalls, consumablesId, evoStones, getItems } from '../lib/data';
+import {
+  bestSellers,
+  captureBalls,
+  consumablesId,
+  evoStones,
+  getItems,
+  newItems,
+  saleItems,
+} from '../lib/data';
+import { useFav } from './useFav';
 
 export function AllItems() {
   const [items, setItems] = useState<Item[]>([]);
@@ -10,6 +19,8 @@ export function AllItems() {
   const [error, setError] = useState<unknown>();
   const inputRef = useRef<HTMLInputElement>(null);
   const filterRef = useRef<HTMLInputElement>(null);
+
+  const { favItemIds } = useFav();
 
   useEffect(() => {
     async function fetchItems() {
@@ -48,11 +59,18 @@ export function AllItems() {
       filtered = filtered.filter((item) => captureBalls.includes(item.itemId));
     } else if (filterValue === 'Evo Stones') {
       filtered = filtered.filter((item) => evoStones.includes(item.itemId));
+    } else if (filterValue === 'New') {
+      filtered = filtered.filter((item) => newItems.includes(item.itemId));
+    } else if (filterValue === 'Best Sellers') {
+      filtered = filtered.filter((item) => bestSellers.includes(item.itemId));
+    } else if (filterValue === 'Sale') {
+      const saleItemsId = saleItems.map((i) => {
+        return i.itemId;
+      });
+      filtered = filtered.filter((item) => saleItemsId.includes(item.itemId));
     }
     setFilteredItems(filtered);
   }
-
-  console.log(filterRef.current?.value);
 
   return (
     <>
@@ -63,29 +81,29 @@ export function AllItems() {
               type="text"
               placeholder="Search"
               ref={inputRef}
-              className="w-60 h-10 border-2 mt-2"
+              className="w-60 h-10 border-2 mt-8 mb-8 rounded p-2"
               onChange={handleSearch}></input>
-            <label htmlFor="filter" className="m-2">
+            <label htmlFor="filter" className="m-2 text-lg ml-4">
               Filter
             </label>
             <select
               name="filter"
-              className="m-2  border-2 border-black"
+              className="border-2 border-black rounded w-40 h-10"
               ref={filterRef}
               onChange={handleSearch}>
               <option>All</option>
               <option>Consumables</option>
               <option>Capture Balls</option>
               <option>Evo Stones</option>
+              <option>Sale</option>
+              <option>New</option>
+              <option>Best Sellers</option>
             </select>
           </form>
           <h1 className="text-3xl mb-4 border-b-2 border-black">All Items</h1>
           <div className="flex flex-wrap justify-center">
             {filteredItems.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
-            ))}
-            {filteredItems.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
+              <CatalogCards key={item.itemId} item={item} favIds={favItemIds} />
             ))}
           </div>
         </div>

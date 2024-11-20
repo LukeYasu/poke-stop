@@ -4,6 +4,7 @@ import { Item } from './Catalog';
 import { useCallback, useEffect, useState } from 'react';
 import { useCart } from './useCart';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
+import { useUser } from './useUser';
 
 export function ItemDetails() {
   const { itemId } = useParams();
@@ -12,6 +13,7 @@ export function ItemDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
   const { addToCart, toggleOpen } = useCart();
+  const { user } = useUser();
 
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
@@ -74,9 +76,13 @@ export function ItemDetails() {
   const itemQuantity = toggleItemQuantity(item);
 
   function handleAddToCart() {
-    if (!item) throw new Error('item not found');
-    addToCart(item, count);
-    toggleOpen();
+    if (user) {
+      if (!item) throw new Error('item not found');
+      addToCart(item, count);
+      toggleOpen();
+    } else {
+      alert('please sign in or create an account.');
+    }
   }
 
   return (

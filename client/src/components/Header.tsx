@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useUser } from './useUser';
 
 export function Header() {
-  const { cart, toggleOpen, isOpen } = useCart();
+  const { cart, toggleOpen } = useCart();
   const [userAccountOpen, setUserAccountOpen] = useState(false);
   const { user } = useUser();
   function handleSignInPrompt() {
@@ -51,9 +51,8 @@ export function Header() {
     <div>
       <div className="header">
         <div className="col-half">
-          <div className="burger">burger</div>
           <Link to={'/'}>
-            <h1 className="logo">PokeStop</h1>
+            <h1 className="logo m-1">PokeStop</h1>
           </Link>
           <Link to={'/all-items'}>
             <div className="m-8 text-xl">All Items</div>
@@ -75,8 +74,21 @@ export function Header() {
             className="cart cursor-pointer"
             onClick={toggleOpen}
           />
-          <div>{cart.length}</div>
-          {isOpen ? <Cart onClick={toggleOpen} items={cart} /> : <></>}
+          <div className="cart-count-ref">
+            {cart.length !== 0 ? (
+              <div className="cart-count">{cart.length}</div>
+            ) : (
+              <></>
+            )}
+          </div>
+          {/* {isOpen ? (
+            <div className="cart-popup">
+              <Cart onClick={toggleOpen} items={cart} />
+            </div>
+          ) : (
+            <div className="cart-popup-close"></div>
+          )} */}
+          {<Cart onClick={toggleOpen} items={cart} />}
         </div>
       </div>
       <Outlet />
