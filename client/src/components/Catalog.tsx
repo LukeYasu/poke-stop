@@ -8,7 +8,6 @@ export function Catalog() {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
-
   useEffect(() => {
     async function fetchItems() {
       try {

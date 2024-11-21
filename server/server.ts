@@ -147,7 +147,6 @@ app.get('/api/cart-items', authMiddleware, async (req, res, next) => {
     const sql = `
     select *
     from "Cart"
-    join "Items" using ("itemId")
     where "userId" = $1
     `;
     const params = [req.user?.userId];
@@ -196,6 +195,24 @@ app.put('/api/cart-items', authMiddleware, async (req, res, next) => {
   }
 });
 
+app.delete('/api/cart-items/', authMiddleware, async (req, res, next) => {
+  try {
+    const sql = `
+    delete
+    from "Cart"
+    where "userId" = $1
+    returning *
+    `;
+    const params = [req.user?.userId];
+    const result = await db.query(sql, params);
+    const deletedItem = result.rows[0];
+    if (!deletedItem) throw new ClientError(404, 'no item');
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.delete(
   '/api/cart-items/:itemId',
   authMiddleware,
@@ -224,20 +241,21 @@ app.get('/api/favorites', authMiddleware, async (req, res, next) => {
     const sql = `
     select *
     from "Favorites"
+    join "Items" using ("itemId")
     where "userId" = $1
     `;
     const params = [req.user?.userId];
     const result = await db.query(sql, params);
     if (!result) throw new ClientError(404, 'Favorites not found');
     const favItems = result.rows;
-    res.send(200).json(favItems);
+    res.status(200).json(favItems);
   } catch (err) {
     next(err);
   }
 });
 
-app.post('/api/favorites', authMiddleware, async (req, res, next) => {
-  const { itemId } = req.body;
+app.post('/api/favorites/:itemId', authMiddleware, async (req, res, next) => {
+  const { itemId } = req.params;
   try {
     const sql = `
     insert into "Favorites" ("userId", "itemId")
@@ -248,14 +266,14 @@ app.post('/api/favorites', authMiddleware, async (req, res, next) => {
     const result = await db.query(sql, params);
     if (!result) throw new ClientError(404, 'favorite item not found');
     const favItem = result.rows[0];
-    res.send(201).json(favItem);
+    res.status(201).json(favItem);
   } catch (err) {
     next(err);
   }
 });
 
-app.delete('/api/favorites', authMiddleware, async (req, res, next) => {
-  const { itemId } = req.body;
+app.delete('/api/favorites/:itemId', authMiddleware, async (req, res, next) => {
+  const { itemId } = req.params;
   try {
     const sql = `
     delete

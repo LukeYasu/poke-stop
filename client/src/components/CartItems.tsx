@@ -11,10 +11,13 @@ export function CartItems({ cartItems }: Props) {
   const [total, setTotal] = useState(0);
   const { addToCart } = useCart();
 
-  function handleTotal() {
-    cartItems.forEach((i) => setTotal(i.price * i.quantity));
-  }
-  useEffect(() => handleTotal());
+  useEffect(() => {
+    let cartTotal = 0;
+    cartItems.forEach((cartItem) => {
+      cartTotal += cartItem.price * cartItem.quantity;
+    });
+    setTotal(cartTotal);
+  }, [cartItems]);
 
   return (
     <div>
@@ -33,7 +36,6 @@ export function CartItems({ cartItems }: Props) {
                 if (item.quantity > 1) {
                   addToCart(item, -1);
                 }
-                handleTotal();
               }}>
               -
             </button>
@@ -42,7 +44,6 @@ export function CartItems({ cartItems }: Props) {
               className="border-2 border-black bg-slate-200 m-1 w-8 h-8 leading-3"
               onClick={() => {
                 addToCart(item, 1);
-                handleTotal();
               }}>
               +
             </button>
@@ -51,7 +52,6 @@ export function CartItems({ cartItems }: Props) {
               onClick={() => {
                 addToCart(item, -item.quantity);
                 deleteCart(item.itemId);
-                handleTotal();
               }}>
               Delete
             </button>
@@ -60,7 +60,9 @@ export function CartItems({ cartItems }: Props) {
           <></>
         )
       )}
-      <div>Total:&nbsp;&#8381;{total}</div>
+      <div className="m-2 border-t-2 border-black">
+        Total:&nbsp;&#8381;{total}
+      </div>
     </div>
   );
 }

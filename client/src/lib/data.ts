@@ -21,10 +21,16 @@ export const bestSellers = [1, 2, 5];
 /** includes all the itemId for items with the tag 'NEW!' in CartItems.tsx */
 export const newItems = [7];
 /** includes all the itemId for items with the tag 'SALE!' in CartItems.tsx */
-export const saleItems = [{ itemId: 6, newPrice: 1600 }];
-
-export const consumablesId = [9, 10];
-export const captureBalls = [1, 2, 3, 8];
+export const saleItems = [
+  { itemId: 6, newPrice: 1600 },
+  { itemId: 11, newPrice: 900 },
+  { itemId: 19, newPrice: 1900 },
+];
+/* this is a list of itemId of items that are considered consumables and can is used as a filter in the AllItems.tsx page */
+export const consumablesId = [9, 10, 15, 16, 17, 18, 19];
+/* this is a list of itemId of items that are considered capture balls and can is used as a filter in the AllItems.tsx page */
+export const captureBalls = [1, 2, 3, 8, 11, 12, 13, 14];
+/* this is a list of itemId of items that are considered evoStones and can is used as a filter in the AllItems.tsx page */
 export const evoStones = [4, 5, 6, 7];
 
 export async function getItems(): Promise<Item[]> {
@@ -121,6 +127,18 @@ export async function deleteCart(itemId: number) {
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
 }
 
+export async function deleteClearCart() {
+  const req = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${readToken()}`,
+    },
+  };
+  const res = await fetch(`/api/cart-items`, req);
+  if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+}
+
 export async function readFavorites() {
   const req = {
     method: 'GET',
@@ -141,11 +159,10 @@ export async function insertFavorites(itemId: number) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${readToken()}`,
     },
-    body: JSON.stringify(itemId),
   };
-  const res = await fetch('/api/favorites', req);
+  const res = await fetch(`/api/favorites/${itemId}`, req);
   if (!res.ok) throw new Error(`Fetch Error ${res.status}`);
-  return (await res.json()) as Item;
+  return await res.json();
 }
 
 export async function deleteFavorites(itemId: number) {
@@ -155,9 +172,8 @@ export async function deleteFavorites(itemId: number) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${readToken()}`,
     },
-    body: JSON.stringify(itemId),
   };
-  const res = await fetch('/api/favorites', req);
+  const res = await fetch(`/api/favorites/${itemId}`, req);
   if (!res.ok) throw new Error(`Fetch Error ${res.status}`);
-  return (await res.json()) as Item;
+  return await res.json();
 }

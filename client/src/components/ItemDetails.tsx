@@ -4,6 +4,7 @@ import { Item } from './Catalog';
 import { useCallback, useEffect, useState } from 'react';
 import { useCart } from './useCart';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
+import { useUser } from './useUser';
 
 export function ItemDetails() {
   const { itemId } = useParams();
@@ -12,6 +13,7 @@ export function ItemDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
   const { addToCart, toggleOpen } = useCart();
+  const { user } = useUser();
 
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
@@ -74,9 +76,13 @@ export function ItemDetails() {
   const itemQuantity = toggleItemQuantity(item);
 
   function handleAddToCart() {
-    if (!item) throw new Error('item not found');
-    addToCart(item, count);
-    toggleOpen();
+    if (user) {
+      if (!item) throw new Error('item not found');
+      addToCart(item, count);
+      toggleOpen();
+    } else {
+      alert('please sign in or create an account.');
+    }
   }
 
   return (
@@ -90,13 +96,13 @@ export function ItemDetails() {
         <div>{item.description}</div>
         <div className="flex items-center">
           <button
-            className="border-2 border-black bg-slate-200 m-1 w-8"
+            className="border-black bg-slate-200 m-1 w-8 rounded"
             onClick={decrement}>
             -
           </button>
           <div>{count}</div>
           <button
-            className="border-2 border-black bg-slate-200 m-1 w-8"
+            className="border-black bg-slate-200 m-1 w-8 rounded"
             onClick={increment}>
             +
           </button>
@@ -104,10 +110,10 @@ export function ItemDetails() {
         <div>
           <button
             onClick={handleAddToCart}
-            className="border-2 border-black bg-slate-200 m-1 p-1">
+            className="border-black bg-slate-200 m-1 p-1 rounded">
             Add to Cart
           </button>
-          <button className="border-2 border-black bg-slate-200 m-1 p-1">
+          <button className="border-black bg-slate-200 m-1 p-1 rounded">
             Add to Favorites
           </button>
         </div>

@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import {
   deleteCart,
+  getItems,
   insertCart,
   Item,
   readCart,
@@ -34,16 +35,28 @@ type Props = {
 };
 
 export function CartProvider({ children }: Props) {
-  const [cartContents, setCartContents] = useState<CartItem[]>([]);
+  const [cartContents, setCartContents] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser();
   useEffect(() => {
     async function loadCart() {
       try {
         if (user) {
-          const loadedCartItems = await readCart();
-          setCartContents(loadedCartItems);
-          console.log(loadedCartItems);
+          const cartInfo = await readCart();
+          const cartItemDetails = await getItems();
+          for (let i = 0; i < cartInfo.length; i++) {
+            const matchingIdIndex = cartItemDetails.findIndex(
+              (item) => item.itemId === cartInfo[i].itemId
+            );
+            const mergedCart = {
+              ...cartItemDetails[matchingIdIndex],
+              ...cartInfo[i],
+            };
+            setCartContents((prev) => [...prev, mergedCart]);
+          }
+          // console.log('cartItems: ', cartItems);
+          // setCartContents([...cartItems]);
+          // console.log(cartItems);
         }
       } catch (err) {
         throw new Error(`Error: ${err}`);

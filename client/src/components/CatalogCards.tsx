@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useCart } from './useCart';
 import { useUser } from './useUser';
+import { useFav } from './useFav';
 
 type Props = {
   item: Item;
@@ -20,9 +21,16 @@ type Props = {
 export function CatalogCards({ item }: Props) {
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
+  const cardTag = setTagVer(tag, sale);
   const [salePrice, setSalePrice] = useState<number | null>(null);
+  const salePriceRender = toggleSalePrice(item, sale, salePrice);
+  const itemQuantity = toggleItemQuantity(item);
   const [isFavorite, setIsFavorite] = useState(false);
+  const { favItemIds } = useFav();
+
   const { toggleOpen, addToCart } = useCart();
+  const { user } = useUser();
+  const { getFavIds } = useFav();
 
   useEffect(() => {
     if (bestSellers.includes(item.itemId)) {
@@ -35,22 +43,29 @@ export function CatalogCards({ item }: Props) {
       setSale(true);
       setSalePrice(saleItem.newPrice);
     }
-  }, [item.itemId]);
+    if (favItemIds.includes(item.itemId)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+    if (!user) setIsFavorite(false);
+  }, []);
 
-  const cardTag = setTagVer(tag, sale);
-  const itemQuantity = toggleItemQuantity(item);
-  const salePriceRender = toggleSalePrice(item, sale, salePrice);
-  const { user } = useUser();
   async function handleFavorite(e: React.MouseEvent) {
     try {
-      e.preventDefault();
-      setIsFavorite(!isFavorite);
       if (user) {
+        e.preventDefault();
+        getFavIds();
         if (isFavorite) {
-          await insertFavorites(item.itemId);
-        } else {
+          setIsFavorite(false);
           await deleteFavorites(item.itemId);
+        } else {
+          setIsFavorite(true);
+          await insertFavorites(item.itemId);
         }
+      } else {
+        e.preventDefault();
+        alert('please sign in or create an account.');
       }
     } catch (err) {
       throw new Error(`Error: ${err}`);
@@ -58,11 +73,15 @@ export function CatalogCards({ item }: Props) {
   }
 
   function cartCartClick(e: React.MouseEvent) {
-    e.preventDefault();
-    toggleOpen();
-    addToCart(item, 1);
+    if (user) {
+      e.preventDefault();
+      toggleOpen();
+      addToCart(item, 1);
+    } else {
+      e.preventDefault();
+      alert('please sign in or create an account.');
+    }
   }
-
   return (
     <Link to={'/items/' + item.itemId}>
       <div
@@ -84,7 +103,7 @@ export function CatalogCards({ item }: Props) {
             />
           )}
         </div>
-        <img className="p-2" src={item.photoUrl} />
+        <img className="p-2 card-img" src={item.photoUrl} />
         <div className="item-count-ref">{itemQuantity}</div>
         <div className="flex flex-col p-1">
           <h2 className="font-semibold">{item.name}</h2>
