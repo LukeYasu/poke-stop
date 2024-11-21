@@ -2,6 +2,8 @@ import { CartItems } from './CartItems';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from './useCart';
 import { CartItem } from './cartContext';
+import { deleteClearCart } from '../lib/data';
+import { useUser } from './useUser';
 
 type Props = {
   onClick: () => void;
@@ -10,12 +12,20 @@ type Props = {
 export function Cart({ onClick, items }: Props) {
   const navigate = useNavigate();
   const { toggleOpen, clearCart, isOpen } = useCart();
+  const { user } = useUser();
 
   function handleCheckout() {
-    alert('successful checkout');
-    toggleOpen();
-    clearCart();
-    navigate('/');
+    if (!user) {
+      alert('Sign in to continue');
+    } else if (items.length === 0) {
+      alert('no items in cart');
+    } else {
+      alert('successful checkout');
+      toggleOpen();
+      clearCart();
+      deleteClearCart();
+      navigate('/');
+    }
   }
   return (
     <div className="shopping-cart-ref">
@@ -33,7 +43,7 @@ export function Cart({ onClick, items }: Props) {
           <div className="flex justify-between">
             <div className="bg-white w-full p-2 flex justify-between border-b-2 border-black">
               Shopping Cart
-              <button className="border-2 h-12 w-12" onClick={onClick}>
+              <button className="border-2 h-12 w-12 rounded" onClick={onClick}>
                 X
               </button>
             </div>

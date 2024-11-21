@@ -60,7 +60,9 @@ export function CartItems({ cartItems }: Props) {
           <></>
         )
       )}
-      <div className="m-2">Total:&nbsp;&#8381;{total}</div>
+      <div className="m-2 border-t-2 border-black">
+        Total:&nbsp;&#8381;{total}
+      </div>
     </div>
   );
 }

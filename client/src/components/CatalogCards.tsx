@@ -16,10 +16,9 @@ import { useFav } from './useFav';
 
 type Props = {
   item: Item;
-  favIds: number[];
 };
 
-export function CatalogCards({ item, favIds }: Props) {
+export function CatalogCards({ item }: Props) {
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
   const cardTag = setTagVer(tag, sale);
@@ -27,6 +26,7 @@ export function CatalogCards({ item, favIds }: Props) {
   const salePriceRender = toggleSalePrice(item, sale, salePrice);
   const itemQuantity = toggleItemQuantity(item);
   const [isFavorite, setIsFavorite] = useState(false);
+  const { favItemIds } = useFav();
 
   const { toggleOpen, addToCart } = useCart();
   const { user } = useUser();
@@ -43,7 +43,7 @@ export function CatalogCards({ item, favIds }: Props) {
       setSale(true);
       setSalePrice(saleItem.newPrice);
     }
-    if (favIds.includes(item.itemId)) {
+    if (favItemIds.includes(item.itemId)) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
@@ -103,7 +103,7 @@ export function CatalogCards({ item, favIds }: Props) {
             />
           )}
         </div>
-        <img className="p-2" src={item.photoUrl} />
+        <img className="p-2 card-img" src={item.photoUrl} />
         <div className="item-count-ref">{itemQuantity}</div>
         <div className="flex flex-col p-1">
           <h2 className="font-semibold">{item.name}</h2>

@@ -34,16 +34,20 @@ export function Favorites() {
   if (isLoading) return <div>Loading ...</div>;
   if (!user) return <div>Sign in to use favorites</div>;
   return (
-    <div>
-      <div className="text-3xl border-black border-b-2 m-4">Favorites</div>
-      <div className="w-full h-full flex">
-        {items.length !== 0 ? (
-          items.map((item) => (
-            <CatalogCards key={item.itemId} item={item} favIds={favItemIds} />
-          ))
-        ) : (
-          <div className="m-4">No Favorites</div>
-        )}
+    <div className="flex justify-center flex-col w-full items-center">
+      <div className="text-3xl border-black border-b-2 m-4 favorites-page">
+        Favorites
+      </div>
+      <div className="favorites-page">
+        <div className="h-full flex">
+          {items.length !== 0 ? (
+            items.map((item) => (
+              <CatalogCards key={item.itemId} item={item} favIds={favItemIds} />
+            ))
+          ) : (
+            <div className="m-4">No Favorites</div>
+          )}
+        </div>
       </div>
     </div>
   );

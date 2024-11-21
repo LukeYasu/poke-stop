@@ -10,7 +10,6 @@ import {
   newItems,
   saleItems,
 } from '../lib/data';
-import { useFav } from './useFav';
 
 export function AllItems() {
   const [items, setItems] = useState<Item[]>([]);
@@ -19,8 +18,6 @@ export function AllItems() {
   const [error, setError] = useState<unknown>();
   const inputRef = useRef<HTMLInputElement>(null);
   const filterRef = useRef<HTMLInputElement>(null);
-
-  const { favItemIds } = useFav();
 
   useEffect(() => {
     async function fetchItems() {
@@ -103,7 +100,7 @@ export function AllItems() {
           <h1 className="text-3xl mb-4 border-b-2 border-black">All Items</h1>
           <div className="flex flex-wrap justify-center">
             {filteredItems.map((item) => (
-              <CatalogCards key={item.itemId} item={item} favIds={favItemIds} />
+              <CatalogCards key={item.itemId} item={item} />
             ))}
           </div>
         </div>

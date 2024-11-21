@@ -127,6 +127,18 @@ export async function deleteCart(itemId: number) {
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
 }
 
+export async function deleteClearCart() {
+  const req = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${readToken()}`,
+    },
+  };
+  const res = await fetch(`/api/cart-items`, req);
+  if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+}
+
 export async function readFavorites() {
   const req = {
     method: 'GET',

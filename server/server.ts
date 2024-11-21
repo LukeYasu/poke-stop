@@ -195,6 +195,24 @@ app.put('/api/cart-items', authMiddleware, async (req, res, next) => {
   }
 });
 
+app.delete('/api/cart-items/', authMiddleware, async (req, res, next) => {
+  try {
+    const sql = `
+    delete
+    from "Cart"
+    where "userId" = $1
+    returning *
+    `;
+    const params = [req.user?.userId];
+    const result = await db.query(sql, params);
+    const deletedItem = result.rows[0];
+    if (!deletedItem) throw new ClientError(404, 'no item');
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.delete(
   '/api/cart-items/:itemId',
   authMiddleware,

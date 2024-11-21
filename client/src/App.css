@@ -26,14 +26,33 @@ body {
   background-color: #54afff;
   height: 75px;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0;
   z-index: 1;
+}
+
+.header-width {
+  width: 66%;
+  display: flex;
+  align-items: center;
+  align-self: center;
 }
 
 .col-half {
   display: flex;
   width: 50%;
+  align-items: center;
+}
+
+.col-third {
+  display: flex;
+  width: 33%;
+  align-items: center;
+}
+
+.col-two-third {
+  display: flex;
+  width: 66%;
   align-items: center;
 }
 
@@ -84,11 +103,11 @@ body {
 
 .user-login {
   position: relative;
-  background-color: lightblue;
+  background-color: #37a1fd;
+
+  /* border-radius: 5px; */
   top: 37px;
-  right: 300px;
-  height: 50px;
-  width: 300px;
+  right: 180px;
 }
 
 .shopping-cart {
@@ -164,7 +183,8 @@ body {
   position: relative;
   width: 30px;
   height: 30px;
-  left: 120px;
+  left: 123px;
+  bottom: 3px;
 }
 
 .card-tag-bs,
@@ -192,6 +212,10 @@ body {
 .item-count-ref {
   height: 0;
   width: 0;
+}
+
+.card-img {
+  width: 100%;
 }
 
 .item-count {
@@ -227,8 +251,17 @@ body {
   margin: 1rem;
 }
 
+.favorites-page {
+  width: 66%;
+}
+
 .card-cart:hover {
   background-color: #ebe9e9;
+}
+
+.header-options:hover {
+  color: orange;
+  transition: color 0.1s ease-in-out;
 }
 
 /* .card:hover {

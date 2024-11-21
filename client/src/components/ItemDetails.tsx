@@ -96,13 +96,13 @@ export function ItemDetails() {
         <div>{item.description}</div>
         <div className="flex items-center">
           <button
-            className="border-2 border-black bg-slate-200 m-1 w-8"
+            className="border-black bg-slate-200 m-1 w-8 rounded"
             onClick={decrement}>
             -
           </button>
           <div>{count}</div>
           <button
-            className="border-2 border-black bg-slate-200 m-1 w-8"
+            className="border-black bg-slate-200 m-1 w-8 rounded"
             onClick={increment}>
             +
           </button>
@@ -110,10 +110,10 @@ export function ItemDetails() {
         <div>
           <button
             onClick={handleAddToCart}
-            className="border-2 border-black bg-slate-200 m-1 p-1">
+            className="border-black bg-slate-200 m-1 p-1 rounded">
             Add to Cart
           </button>
-          <button className="border-2 border-black bg-slate-200 m-1 p-1">
+          <button className="border-black bg-slate-200 m-1 p-1 rounded">
             Add to Favorites
           </button>
         </div>
