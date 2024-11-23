@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getItems, Item } from '../lib/data';
 import { CatalogCards } from './CatalogCards';
-import { Carousel } from './Carousel';
 import '../App.css';
 
 export function Catalog() {
@@ -35,7 +34,6 @@ export function Catalog() {
     <>
       <div className="flex w-full justify-center">
         <div className="page-container">
-          <Carousel />
           <h1 className="text-3xl mb-4 border-b-2 border-black">catalog</h1>
           <div className="flex flex-wrap justify-center">
             {items.map((item) => (

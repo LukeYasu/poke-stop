@@ -23,38 +23,48 @@ export function CartItems({ cartItems }: Props) {
     <div>
       {cartItems.map((item) =>
         item.quantity ? (
-          <div className="flex items-center justify-evenly bg-white m-2 rounded-md">
+          <div
+            key={item.itemId}
+            className="flex items-center justify-between bg-white m-2 rounded-md">
             <img
               src={'/' + item?.photoUrl}
-              className="bg-white rounded-md m-2 border-2 border-slate-200"
+              className="bg-white rounded-md m-2 border-2 border-slate-200 w-44"
             />
-            <div>{item?.name}</div>
-            <div>&nbsp;&#8381;{item.price * item.quantity}</div>
-            <button
-              className="border-2 border-black bg-slate-200 m-1 w-8 h-8 leading-3"
-              onClick={() => {
-                if (item.quantity > 1) {
-                  addToCart(item, -1);
-                }
-              }}>
-              -
-            </button>
-            <div> count: {item.quantity}</div>
-            <button
-              className="border-2 border-black bg-slate-200 m-1 w-8 h-8 leading-3"
-              onClick={() => {
-                addToCart(item, 1);
-              }}>
-              +
-            </button>
-            <button
-              className="border-2 border-black bg-slate-200 m-1 w-30 h-8 leading-3"
-              onClick={() => {
-                addToCart(item, -item.quantity);
-                deleteCart(item.itemId);
-              }}>
-              Delete
-            </button>
+            <div className="flex flex-col">
+              <div className="text-2xl">{item?.name}</div>
+              <div className="text-xl">
+                &nbsp;&#8381;{item.price * item.quantity}
+              </div>
+            </div>
+            <div className="flex items-center">
+              <button
+                className="border-black bg-slate-200 m-1 w-8 h-8 leading-3"
+                onClick={() => {
+                  if (item.quantity > 1) {
+                    addToCart(item, -1);
+                  }
+                }}>
+                -
+              </button>
+              <div className="text-2xl"> count: {item.quantity}</div>
+              <button
+                className="border-black bg-slate-200 m-1 w-8 h-8 leading-3"
+                onClick={() => {
+                  addToCart(item, 1);
+                }}>
+                +
+              </button>
+            </div>
+            <div className="delete-ref">
+              <button
+                className=" border-black m-1 w-30 h-8 delete-button"
+                onClick={() => {
+                  addToCart(item, -item.quantity);
+                  deleteCart(item.itemId);
+                }}>
+                <img className="w-6" src="delete.webp" />
+              </button>
+            </div>
           </div>
         ) : (
           <></>

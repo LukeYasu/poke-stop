@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { consumablesId, getItems, Item } from '../lib/data';
-import { CatalogCards } from './CatalogCards';
+import { getItems, Item } from '../lib/data';
+import { ItemCategories } from './ItemCategories';
 
 export function Consumables() {
   const [consumables, setConsumables] = useState<Item[]>([]);
@@ -10,9 +10,7 @@ export function Consumables() {
     async function fetchItems() {
       try {
         const result = await getItems();
-        const filteredItems = result.filter((item) =>
-          consumablesId.includes(item.itemId)
-        );
+        const filteredItems = result.filter((i) => i.itemType === 'consumable');
         setConsumables(filteredItems);
       } catch (err) {
         setError(err);
@@ -21,7 +19,6 @@ export function Consumables() {
         setIsLoading(false);
       }
     }
-    console.log(consumables);
     fetchItems();
   }, []);
 
@@ -33,16 +30,5 @@ export function Consumables() {
   }
   if (isLoading) return <div>Loading ...</div>;
 
-  return (
-    <div className="w-full flex items-center flex-col">
-      <h1 className="text-3xl mb-4 border-b-2 border-black w-2/3">
-        Consumables
-      </h1>
-      <div className="w-2/3 flex flex-wrap">
-        {consumables.map((item) => (
-          <CatalogCards item={item} />
-        ))}
-      </div>
-    </div>
-  );
+  return <ItemCategories items={consumables} />;
 }

@@ -30,7 +30,7 @@ export function Cart({ onClick, items }: Props) {
   return (
     <div className="shopping-cart-ref">
       <div
-        // className={isOpen ? 'sc-bg sc-bg-open' : 'sc-bg sc-bg-close'}
+        className={isOpen ? 'sc-bg sc-bg-open' : 'sc-bg sc-bg-close hidden'}
         onClick={onClick}></div>
 
       <div
@@ -40,7 +40,7 @@ export function Cart({ onClick, items }: Props) {
             : 'cart-popup-close shopping-cart flex flex-col h-full justify-between drop-shadow-2xl'
         }>
         <div>
-          <div className="flex justify-between">
+          <div className="flex justify-between cart-header">
             <div className="bg-white w-full p-2 flex justify-between border-b-2 border-black">
               Shopping Cart
               <button className="border-2 h-12 w-12 rounded" onClick={onClick}>

@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Catalog } from './components/Catalog';
 import { Header } from './components/Header';
 import { NotFound } from './components/NotFound';
 import { ItemDetails } from './components/ItemDetails';
@@ -13,6 +12,8 @@ import { AllItems } from './components/AllItems';
 import { FavProvider } from './components/FavContext';
 import { CaptureBalls } from './components/CaptureBalls';
 import { Consumables } from './components/Consumables';
+import { PowerUps } from './components/PowerUps';
+import { HomePage } from './components/HomePage';
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
         <FavProvider>
           <Routes>
             <Route path="/" element={<Header />}>
-              <Route index element={<Catalog />} />
+              <Route index element={<HomePage />} />
               <Route path="items/:itemId" element={<ItemDetails />} />
               <Route path="favorites" element={<Favorites />} />
               <Route path="all-items" element={<AllItems />} />
               <Route path="capture-balls" element={<CaptureBalls />} />
               <Route path="consumables" element={<Consumables />} />
+              <Route path="power-ups" element={<PowerUps />} />
               <Route path="sign-in" element={<SignIn />} />
               <Route path="sign-up" element={<SignUp />} />
               <Route path="*" element={<NotFound />} />

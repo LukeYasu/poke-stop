@@ -11,12 +11,20 @@ export type UserContextValues = {
   token: string | undefined;
   handleSignIn: (user: User, token: string) => void;
   handleSignOut: () => void;
+  toggleUserBox: () => void;
+  toggleDrawer: () => void;
+  userBoxOpen: boolean;
+  drawerOpen: boolean;
 };
 export const UserContext = createContext<UserContextValues>({
   user: undefined,
   token: undefined,
   handleSignIn: () => undefined,
   handleSignOut: () => undefined,
+  toggleUserBox: () => undefined,
+  toggleDrawer: () => undefined,
+  userBoxOpen: false,
+  drawerOpen: false,
 });
 
 type Props = {
@@ -25,7 +33,8 @@ type Props = {
 export function UserProvider({ children }: Props) {
   const [user, setUser] = useState<User>();
   const [token, setToken] = useState<string>();
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   function handleSignIn(user: User, token: string) {
     setUser(user);
     setToken(token);
@@ -38,7 +47,24 @@ export function UserProvider({ children }: Props) {
     removeAuth();
   }
 
-  const contextValue = { user, token, handleSignIn, handleSignOut };
+  function toggleUserBox() {
+    setIsOpen(!isOpen);
+  }
+
+  function toggleDrawer() {
+    setDrawerOpen(!drawerOpen);
+  }
+
+  const contextValue = {
+    user,
+    token,
+    handleSignIn,
+    handleSignOut,
+    toggleUserBox,
+    toggleDrawer,
+    userBoxOpen: isOpen,
+    drawerOpen,
+  };
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
