@@ -32,7 +32,7 @@ export function CartItems({ cartItems }: Props) {
             />
             <div className="flex flex-col">
               <div className="text-2xl">{item?.name}</div>
-              <div className="text-2xl">
+              <div className="text-xl">
                 &nbsp;&#8381;{item.price * item.quantity}
               </div>
             </div>

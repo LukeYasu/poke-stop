@@ -283,6 +283,52 @@ body {
   width: 450px;
 }
 
+.burger {
+  width: 60px;
+  filter: invert();
+  display: none;
+}
+
+.app-drawer-ref {
+  height: 0;
+  width: 0;
+}
+
+.app-drawer {
+  position: relative;
+  background-color: #3399f2;
+  bottom: 10px;
+  height: 100vh;
+  width: 500px;
+  z-index: 10;
+  display: none;
+}
+
+.app-drawer-open {
+  right: 82px;
+  transition: right 0.5s ease-in-out;
+}
+
+.app-drawer-close {
+  right: 582px;
+  transition: right 0.5s ease-in-out;
+}
+
+.ad-bg-open {
+  opacity: 50%;
+  transition: opacity 0.5s ease;
+  display: none;
+}
+
+.app-drawer-titles {
+  color: white;
+  padding: 1rem;
+}
+
+.app-drawer-titles:hover {
+  background-color: #3e8af5;
+}
+
 .card-cart:hover {
   background-color: #ebe9e9;
 }
@@ -296,13 +342,19 @@ body {
   cursor: pointer;
 }
 
-@media screen and (width < 800px) {
+@media screen and (width < 850px) {
   .page-container {
     width: 100%;
   }
 
+  .burger,
+  .app-drawer,
+  .ad-bg-open {
+    display: block;
+  }
+
   .header-options {
-    border: 10px solid red;
+    display: none;
   }
 
   .carousel-img {
@@ -313,5 +365,9 @@ body {
 @media screen and (width < 1246px) {
   .page-container {
     width: 100%;
+  }
+
+  .shopping-cart {
+    width: 550px;
   }
 }

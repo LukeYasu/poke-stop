@@ -3,15 +3,25 @@ import { Cart } from './Cart';
 import { useCart } from './useCart';
 import { useUser } from './useUser';
 import { UserAccBox } from './UserAccBox';
+import { AppDrawer } from './AppDrawer';
 
 export function Header() {
   const { cart, toggleOpen } = useCart();
-  const { user, toggleUserBox } = useUser();
+  const { user, toggleUserBox, drawerOpen, toggleDrawer } = useUser();
 
   return (
     <div>
       <div className="header">
         <div className="page-container flex items-center">
+          <div className="w-40 flex justify-center">
+            <img onClick={toggleDrawer} src="/burger.webp" className="burger" />
+            {<AppDrawer />}
+            <div
+              onClick={toggleDrawer}
+              className={
+                drawerOpen ? 'sc-bg ad-bg-open' : 'sc-bg sc-bg-close hidden'
+              }></div>
+          </div>
           <div className="w-full flex h-20 items-center justify-between">
             <Link to={'/'}>
               <div className="w-46">
@@ -40,12 +50,12 @@ export function Header() {
             </Link>
           </div>
           <div className="col-third cart">
-            <div className="flex flex-col text-white cursor-default">
+            <div className="flex flex-col text-white cursor-default text-orange-300">
               {user ? (
-                <>
+                <div className="flex flex-col justify-between h-full">
                   <div className="text-xl h-4">Trainer</div>
                   <div className="text-xl text-center">{user?.username}</div>
-                </>
+                </div>
               ) : (
                 <></>
               )}

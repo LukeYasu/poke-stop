@@ -45,8 +45,8 @@ export function CatalogCards({ item }: Props) {
 
   async function handleFavorite(e: React.MouseEvent) {
     try {
+      e.preventDefault();
       if (user) {
-        e.preventDefault();
         getFavIds();
         if (isFavorite) {
           setIsFavorite(false);
@@ -56,7 +56,6 @@ export function CatalogCards({ item }: Props) {
           await insertFavorites(item.itemId);
         }
       } else {
-        e.preventDefault();
         if (!userBoxOpen) {
           toggleUserBox();
         }
