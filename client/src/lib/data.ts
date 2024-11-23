@@ -5,33 +5,24 @@ export type Item = {
   itemId: number;
   name: string;
   price: number;
+  salePrice: number | null;
   photoUrl: string;
   description: string;
+  cardTag: string | null;
+  itemType: string;
   quantity: number;
+
   stock: number;
 };
 
 export const carouselImages = [
-  { src: '../fire-bundle.png', alt: 'Fire Bundle' },
-  { src: '../trainer-starter-pack.png', alt: 'trainer starter pack' },
+  { src: '../fire-bundle.png', alt: 'Fire Bundle', itemId: 37 },
+  {
+    src: '../trainer-starter-pack.png',
+    alt: 'trainer starter pack',
+    itemId: 36,
+  },
 ];
-
-/** includes all the itemId for items with the tag 'best seller' in CartItems.tsx */
-export const bestSellers = [1, 2, 5];
-/** includes all the itemId for items with the tag 'NEW!' in CartItems.tsx */
-export const newItems = [7];
-/** includes all the itemId for items with the tag 'SALE!' in CartItems.tsx */
-export const saleItems = [
-  { itemId: 6, newPrice: 1600 },
-  { itemId: 11, newPrice: 900 },
-  { itemId: 19, newPrice: 1900 },
-];
-/* this is a list of itemId of items that are considered consumables and can is used as a filter in the AllItems.tsx page */
-export const consumablesId = [9, 10, 15, 16, 17, 18, 19];
-/* this is a list of itemId of items that are considered capture balls and can is used as a filter in the AllItems.tsx page */
-export const captureBalls = [1, 2, 3, 8, 11, 12, 13, 14];
-/* this is a list of itemId of items that are considered evoStones and can is used as a filter in the AllItems.tsx page */
-export const evoStones = [4, 5, 6, 7];
 
 export async function getItems(): Promise<Item[]> {
   const response = await fetch('/api/items');

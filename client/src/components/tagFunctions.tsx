@@ -1,3 +1,6 @@
+// import { useState, useEffect } from 'react';
+// import { getItems, Item } from '../lib/data';
+
 import { Item } from '../lib/data';
 
 export function setTagVer(tag: string, sale: boolean) {
@@ -12,15 +15,11 @@ export function setTagVer(tag: string, sale: boolean) {
   }
 }
 
-export function toggleSalePrice(
-  item: Item,
-  sale: boolean,
-  salePrice: number | null
-) {
-  return sale ? (
+export function toggleSalePrice(item: Item) {
+  return item.salePrice ? (
     <span>
       <s className="text-slate-400">&#8381; {item.price}</s>
-      <span className="text-red-500"> &#8381; {salePrice}</span>
+      <span className="text-red-500"> &#8381; {item.salePrice}</span>
     </span>
   ) : (
     <span>&#8381; {item.price}</span>

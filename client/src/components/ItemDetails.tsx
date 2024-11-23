@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { bestSellers, getItem, newItems, saleItems } from '../lib/data';
+import { deleteFavorites, getItem, insertFavorites } from '../lib/data';
 import { Item } from './Catalog';
 import { useCallback, useEffect, useState } from 'react';
 import { useCart } from './useCart';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useUser } from './useUser';
+import { useFav } from './useFav';
 
 export function ItemDetails() {
   const { itemId } = useParams();
@@ -17,24 +18,26 @@ export function ItemDetails() {
 
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
-  const [salePrice, setSalePrice] = useState<number | null>(null);
+
+  const { favItemIds, getFavIds } = useFav();
+  const { toggleUserBox, userBoxOpen } = useUser();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const cachedFn = useCallback(
     function settingTags() {
       if (itemId) {
-        if (bestSellers.includes(+itemId)) {
+        if (item?.cardTag === 'best seller') {
           setTag('best-seller');
-        } else if (newItems.includes(+itemId)) {
+        } else if (item?.cardTag === 'new') {
           setTag('new');
         }
-        const saleItem = saleItems.find(({ itemId: id }) => +itemId === id);
-        if (saleItem) {
+
+        if (item?.salePrice !== null) {
           setSale(true);
-          setSalePrice(saleItem.newPrice);
         }
       }
     },
-    [itemId]
+    [item?.cardTag, item?.salePrice, itemId]
   );
 
   useEffect(() => {
@@ -72,7 +75,7 @@ export function ItemDetails() {
   }
 
   const cardTag = setTagVer(tag, sale);
-  const salePriceRender = toggleSalePrice(item, sale, salePrice);
+  const salePriceRender = toggleSalePrice(item);
   const itemQuantity = toggleItemQuantity(item);
 
   function handleAddToCart() {
@@ -81,15 +84,61 @@ export function ItemDetails() {
       addToCart(item, count);
       toggleOpen();
     } else {
-      alert('please sign in or create an account.');
+      if (!userBoxOpen) {
+        toggleUserBox();
+      }
+    }
+  }
+
+  async function handleFavorite() {
+    try {
+      if (user && itemId) {
+        getFavIds();
+        if (isFavorite) {
+          setIsFavorite(false);
+          await deleteFavorites(+itemId);
+        } else {
+          setIsFavorite(true);
+          await insertFavorites(+itemId);
+        }
+      } else {
+        if (!userBoxOpen) {
+          toggleUserBox();
+        }
+      }
+    } catch (err) {
+      throw new Error(`Error: ${err}`);
     }
   }
 
   return (
     <div className="flex justify-evenly items-center mt-24">
-      <img src={'/' + item.photoUrl} className="w-1/4 border-2" />
-      <div className="details-count">{itemQuantity}</div>
-      <div className="flex flex-col justify-center">
+      <div className="flex">
+        <img
+          src={'/' + item.photoUrl}
+          alt={item.name}
+          className="border-2 details-img bg-white details-img"
+        />
+        <div>
+          {favItemIds.includes(item.itemId) && user ? (
+            <img
+              className="details-star p-1"
+              src="/star-solid.png"
+              onClick={handleFavorite}
+            />
+          ) : (
+            <img
+              className="details-star"
+              src="/star.png"
+              onClick={handleFavorite}
+            />
+          )}
+        </div>
+        <div>
+          <div className="details-count">{itemQuantity}</div>
+        </div>
+      </div>
+      <div className="flex flex-col justify-center w-1/2">
         <div>{cardTag}</div>
         <div className="text-5xl">{item.name}</div>
         <div className="text-3xl">{salePriceRender}</div>
@@ -113,7 +162,9 @@ export function ItemDetails() {
             className="border-black bg-slate-200 m-1 p-1 rounded">
             Add to Cart
           </button>
-          <button className="border-black bg-slate-200 m-1 p-1 rounded">
+          <button
+            onClick={handleFavorite}
+            className="border-black bg-slate-200 m-1 p-1 rounded">
             Add to Favorites
           </button>
         </div>

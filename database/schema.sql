@@ -10,10 +10,12 @@ CREATE TABLE "Items" (
   "itemId" serial PRIMARY KEY,
   "name" text,
   "price" integer,
+  "salePrice" integer,
   "photoUrl" text,
   "description" text,
   "quantity" integer,
-  "stock" integer,
+  "cardTag" text,
+  "itemType" text,
   "createdAt" timestamptz
 );
 
@@ -28,13 +30,6 @@ CREATE TABLE "Cart" (
   "cartId" serial PRIMARY KEY,
   "userId" integer,
   "itemId" integer,
-  "quantity" integer
-);
-
-CREATE TABLE "Order" (
-  "orderId" serial PRIMARY KEY,
-  "itemId" integer,
-  "userId" integer,
   "quantity" integer
 );
 
