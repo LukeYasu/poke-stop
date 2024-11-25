@@ -4,12 +4,15 @@ import { useCart } from './useCart';
 import { CartItem } from './cartContext';
 import { deleteClearCart } from '../lib/data';
 import { useUser } from './useUser';
+import { useState } from 'react';
+import { CheckoutMessage } from './CheckoutMessage';
 
 type Props = {
   onClick: () => void;
   items: CartItem[];
 };
 export function Cart({ onClick, items }: Props) {
+  const [checkoutBox, setCheckoutBox] = useState(false);
   const navigate = useNavigate();
   const { toggleOpen, clearCart, isOpen } = useCart();
   const { user } = useUser();
@@ -20,12 +23,15 @@ export function Cart({ onClick, items }: Props) {
     } else if (items.length === 0) {
       alert('no items in cart');
     } else {
-      alert('successful checkout');
+      setCheckoutBox(true);
       toggleOpen();
       clearCart();
       deleteClearCart();
       navigate('/');
     }
+  }
+  function closeMessage() {
+    setCheckoutBox(false);
   }
   return (
     <div className="shopping-cart-ref">
@@ -57,6 +63,16 @@ export function Cart({ onClick, items }: Props) {
           onClick={handleCheckout}>
           Checkout
         </button>
+      </div>
+      <div>
+        {checkoutBox ? (
+          <CheckoutMessage
+            showMessage={checkoutBox}
+            closeMessage={closeMessage}
+          />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

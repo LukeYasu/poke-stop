@@ -63,12 +63,7 @@ export function Header() {
             <Link to={'/favorites'}>
               <img src="../star.png" className="star invert" />
             </Link>
-            <div
-              tabIndex={0}
-              onClick={toggleUserBox}
-              // onFocus={!userBoxOpen ? toggleUserBox : () => undefined}
-              // onBlur={userBoxOpen ? toggleUserBox : () => undefined}
-            >
+            <div tabIndex={0} onClick={toggleUserBox}>
               <img src="../user.png" className="user invert" />
             </div>
             <div>{<UserAccBox />}</div>

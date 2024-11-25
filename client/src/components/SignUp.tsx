@@ -1,6 +1,5 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { User } from '../lib/data';
 type User = {
   userId: number;
   username: string;

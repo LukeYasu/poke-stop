@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { Item } from './Catalog';
 import { CatalogCards } from './CatalogCards';
-// import { bestSellers, bundles, newItems, saleItems } from '../lib/data';
 
 type Props = {
   items: Item[];

@@ -1,8 +1,6 @@
-// import { useState, useEffect } from 'react';
-// import { getItems, Item } from '../lib/data';
-
 import { Item } from '../lib/data';
 
+/* Determines which tag, if any, gets displayed onto an item */
 export function setTagVer(tag: string, sale: boolean) {
   if (tag === 'best-seller') {
     return <div className="card-tag-bs">Best Seller</div>;
@@ -14,7 +12,7 @@ export function setTagVer(tag: string, sale: boolean) {
     return <></>;
   }
 }
-
+/* Puts a strikethrough the original price and displays sale price in red to emphasize the sale */
 export function toggleSalePrice(item: Item) {
   return item.salePrice ? (
     <span>
@@ -26,6 +24,7 @@ export function toggleSalePrice(item: Item) {
   );
 }
 
+/* If the item has a quantity greater than 1, it displays the item quantity number with the item */
 export function toggleItemQuantity(item: Item) {
   return item.quantity === 1 ? (
     <></>

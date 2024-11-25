@@ -18,17 +18,25 @@ export function Carousel() {
     return () => clearTimeout(timeoutId);
   }, [handleNext]);
 
+  function handlePrev() {
+    setImgIndex((prev) =>
+      prev <= 0 ? carouselImages.length - 1 : imgIndex - 1
+    );
+  }
+
   function handleClick() {
     const itemId = carouselImages[imgIndex].itemId;
     navigate(`/items/${itemId}`);
   }
   return (
     <div className="w-full flex justify-center carousel">
+      <button onClick={handlePrev}>{'<'}</button>
       <img
         className="carousel-img cursor-pointer"
         src={carouselImages[imgIndex].src}
         onClick={handleClick}
       />
+      <button onClick={handleNext}>{'>'}</button>
     </div>
   );
 }

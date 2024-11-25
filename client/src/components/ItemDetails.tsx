@@ -139,7 +139,7 @@ export function ItemDetails() {
         </div>
       </div>
       <div className="flex flex-col justify-center w-1/2">
-        <div>{cardTag}</div>
+        <div className="relative right-1.5">{cardTag}</div>
         <div className="text-5xl">{item.name}</div>
         <div className="text-3xl">{salePriceRender}</div>
         <div>{item.description}</div>
