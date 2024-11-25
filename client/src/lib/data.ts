@@ -11,10 +11,9 @@ export type Item = {
   cardTag: string | null;
   itemType: string;
   quantity: number;
-
-  stock: number;
 };
 
+/*A list of objects that contain the source, alt and itemId of the images that are being displayed on the carousel*/
 export const carouselImages = [
   { src: '../fire-bundle.png', alt: 'Fire Bundle', itemId: 37 },
   {

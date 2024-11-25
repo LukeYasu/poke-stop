@@ -1,6 +1,5 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { User } from '../lib/data';
 import { useUser } from './useUser';
 
 type AuthData = {

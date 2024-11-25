@@ -23,15 +23,12 @@ export function UserAccBox() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: 'guest', password: 'guest' }),
       };
-      console.log('req: ', req);
       const res = await fetch('/api/auth/sign-in', req);
       if (!res.ok) {
         throw new Error(`fetch Error ${res.status}`);
       }
       const { user, token } = (await res.json()) as AuthData;
       handleSignIn(user, token);
-      console.log('Signed In', user);
-      console.log('Received token:', token);
       navigate('/');
     } catch (err) {
       alert(`Error signing in: ${err}`);
@@ -48,7 +45,9 @@ export function UserAccBox() {
         <div className="user-login-ref">
           <div className="logged-in-box flex justify-center flex-col rounded">
             <div className="flex w-full justify-between">
-              <div className="text-lg m-2">Logged in as: {user?.username}</div>
+              <div className="text-lg m-2 text-white">
+                Logged in as: {user?.username}
+              </div>
               <button
                 onClick={toggleUserBox}
                 className="border-2 border-slate-400 w-7 h-7 text-base rounded m-2 bg-slate-300 text-white">

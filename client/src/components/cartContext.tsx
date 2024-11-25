@@ -54,9 +54,6 @@ export function CartProvider({ children }: Props) {
             };
             setCartContents((prev) => [...prev, mergedCart]);
           }
-          // console.log('cartItems: ', cartItems);
-          // setCartContents([...cartItems]);
-          // console.log(cartItems);
         }
       } catch (err) {
         throw new Error(`Error: ${err}`);

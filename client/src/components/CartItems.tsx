@@ -28,7 +28,7 @@ export function CartItems({ cartItems }: Props) {
             className="flex items-center justify-between bg-white m-2 rounded-md">
             <img
               src={'/' + item?.photoUrl}
-              className="bg-white rounded-md m-2 border-2 border-slate-200 w-44"
+              className="bg-white rounded-md m-2 border-2 border-slate-200 cart-image"
             />
             <div className="flex flex-col">
               <div className="text-2xl">{item?.name}</div>
@@ -46,7 +46,10 @@ export function CartItems({ cartItems }: Props) {
                 }}>
                 -
               </button>
-              <div className="text-2xl"> count: {item.quantity}</div>
+              <div className="cart-item-count-text">
+                {' '}
+                count: {item.quantity}
+              </div>
               <button
                 className="border-black bg-slate-200 m-1 w-8 h-8 leading-3"
                 onClick={() => {
@@ -62,7 +65,7 @@ export function CartItems({ cartItems }: Props) {
                   addToCart(item, -item.quantity);
                   deleteCart(item.itemId);
                 }}>
-                <img className="w-6" src="delete.webp" />
+                <img className="w-6" src="/delete.webp" />
               </button>
             </div>
           </div>
