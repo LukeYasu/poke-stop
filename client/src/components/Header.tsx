@@ -53,8 +53,8 @@ export function Header() {
             <div className="flex flex-col text-white cursor-default text-orange-300">
               {user ? (
                 <div className="flex flex-col justify-between h-full">
-                  <div className="text-xl h-4">Trainer</div>
-                  <div className="text-xl text-center">{user?.username}</div>
+                  <div className="text-lg h-4">Trainer</div>
+                  <div className="text-lg text-center">{user?.username}</div>
                 </div>
               ) : (
                 <></>

@@ -165,5 +165,4 @@ export async function deleteFavorites(itemId: number) {
   };
   const res = await fetch(`/api/favorites/${itemId}`, req);
   if (!res.ok) throw new Error(`Fetch Error ${res.status}`);
-  return await res.json();
 }

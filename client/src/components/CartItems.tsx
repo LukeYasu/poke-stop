@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CartItem } from './cartContext';
 import { useCart } from './useCart';
-import { deleteCart } from '../lib/data';
 
 type Props = {
   cartItems: CartItem[];
@@ -51,10 +50,7 @@ export function CartItems({ cartItems }: Props) {
                 }}>
                 -
               </button>
-              <div className="cart-item-count-text">
-                {' '}
-                count: {item.quantity}
-              </div>
+              <div className="cart-item-count-text">count: {item.quantity}</div>
               <button
                 className="border-black bg-slate-200 m-1 w-8 h-8 leading-3"
                 onClick={() => {
@@ -68,7 +64,6 @@ export function CartItems({ cartItems }: Props) {
                 className=" border-black m-1 w-30 h-8 delete-button"
                 onClick={() => {
                   addToCart(item, -item.quantity);
-                  deleteCart(item.itemId);
                 }}>
                 <img className="w-6" src="/delete.webp" />
               </button>

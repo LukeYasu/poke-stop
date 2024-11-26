@@ -18,8 +18,8 @@ export function CatalogCards({ item }: Props) {
   const cardTag = setTagVer(tag, sale);
   const salePriceRender = toggleSalePrice(item);
   const itemQuantity = toggleItemQuantity(item);
-  const { toggleOpen, addToCart } = useCart();
 
+  const { toggleOpen, addToCart } = useCart();
   const [isFavorite, setIsFavorite] = useState(false);
   const { user } = useUser();
   const { favItemIds } = useFav();
