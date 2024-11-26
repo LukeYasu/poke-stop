@@ -41,7 +41,7 @@ export function CatalogCards({ item }: Props) {
       setIsFavorite(false);
     }
     if (!user) setIsFavorite(false);
-  }, [favItemIds, item.cardTag, item.itemId, item.salePrice, user]);
+  }, []);
 
   async function handleFavorite(e: React.MouseEvent) {
     try {

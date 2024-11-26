@@ -46,7 +46,7 @@ values ('Poké Ball', 100, 'pokeball.png', 'An essential part of any trainers ba
        ('Aerial Ace TM', 800, 'aerialace.webp', 'Lets your Pokémon learn the powerful move "Aerial Ace".', 1, null, 'power up', null),
        ('Charcoal', 3000, 'charcoal.png', 'An item to be held by a Pokémon. It is a combustible fuel that boosts the power of Fire-type moves.', 1, null, 'power up', null),
        ('Potion Bundle', 4000, 'potionbundle.png', 'A bundle of potions that includes: Potion, Super Potion, Hyper Potion, and Max Potion', 1, 'bundle', 'consumable', null),
-       ('Trainer Starter Pack', 12000, 'trainerstarterpack.png', 'The perfect bundle for trainers first starting out and for trainers with veteran experience as it contains all the essential items for their journey.', 1, 'bundle', 'capture ball', null),
+       ('Trainer Starter Pack', 12000, 'trainerstarterpack.png', 'The perfect bundle for trainers first starting out and for trainers with veteran experience as it contains all the essential items for their journey. Bundle Includes Poké ball x10, Great Ball x10, Ultra Ball x10, Potion Bundle(Max Potion, Hyper Potion, Super Potion and Potion).', 1, 'bundle', 'capture ball', null),
        ('Fire Bundle', 14000, 'firebundle.png', 'This bundle specializes in fore type pokemon and gives you a great deal for key items for your fierce fiery Pokémon.', 1, 'bundle', 'power up', null);
 
 insert into "Users" ("username", "hashedPassword")

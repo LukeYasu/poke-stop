@@ -28,9 +28,12 @@ body {
 }
 
 .cart-count {
+  background-color: red;
+  font-size: 1rem;
   position: relative;
   right: 15px;
   bottom: 25px;
+  border-radius: 99px;
 }
 
 .user-login {

@@ -41,11 +41,7 @@ CREATE TABLE "Favorites" (
 
 ALTER TABLE "Cart" ADD FOREIGN KEY ("userId") REFERENCES "Users" ("userId");
 
-ALTER TABLE "Order" ADD FOREIGN KEY ("itemId") REFERENCES "Items" ("itemId");
-
 ALTER TABLE "Cart" ADD FOREIGN KEY ("itemId") REFERENCES "Items" ("itemId");
-
-ALTER TABLE "Order" ADD FOREIGN KEY ("userId") REFERENCES "Users" ("userId");
 
 ALTER TABLE "Favorites" ADD FOREIGN KEY ("userId") REFERENCES "Users" ("userId");
 

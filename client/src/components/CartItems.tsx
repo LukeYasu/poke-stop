@@ -14,7 +14,9 @@ export function CartItems({ cartItems }: Props) {
   useEffect(() => {
     let cartTotal = 0;
     cartItems.forEach((cartItem) => {
-      cartTotal += cartItem.price * cartItem.quantity;
+      cartItem.salePrice
+        ? (cartTotal += cartItem.salePrice * cartItem.quantity)
+        : (cartTotal += cartItem.price * cartItem.quantity);
     });
     setTotal(cartTotal);
   }, [cartItems]);

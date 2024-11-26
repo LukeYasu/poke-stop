@@ -12,7 +12,7 @@ export function setTagVer(tag: string, sale: boolean) {
     return <></>;
   }
 }
-/* Puts a strikethrough the original price and displays sale price in red to emphasize the sale */
+/* Puts a strikethrough the original price and displays sale price in red to emphasize the sale if a sale price exists*/
 export function toggleSalePrice(item: Item) {
   return item.salePrice ? (
     <span>
