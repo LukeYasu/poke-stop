@@ -49,6 +49,10 @@ body {
   width: 66%;
 }
 
+.carousel-button {
+  width: 60px;
+}
+
 .cart,
 .user,
 .star {
@@ -156,7 +160,8 @@ body {
 
 .carousel-img {
   width: 700px;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .details-img {

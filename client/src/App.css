@@ -22,10 +22,12 @@ body {
   font-size: xx-large;
 }
 
+.carousel-button {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .cart-count {
-  background-color: red;
-  border-radius: 99px;
-  font-size: 1rem;
   position: relative;
   right: 15px;
   bottom: 25px;
@@ -219,6 +221,10 @@ body {
   font-size: 1.5rem;
 }
 
+.carousel-button:hover {
+  background-color: rgb(189, 189, 189);
+}
+
 .app-drawer-titles:hover {
   background-color: #3e8af5;
 }
@@ -235,55 +241,3 @@ body {
 .user:hover {
   cursor: pointer;
 }
-
-/*
-@media screen and (width < 850px) {
-  .page-container {
-    width: 100%;
-  }
-
-  .burger,
-  .app-drawer,
-  .ad-bg-open {
-    display: block;
-  }
-
-  .shopping-cart {
-    width: 200px;
-  }
-
-  .cart-image {
-    width: 5rem;
-  }
-
-  .details-img {
-    width: 100px;
-  }
-
-  .delete-button {
-    bottom: 50px;
-    right: 5px;
-  }
-
-  .cart-item-count-text {
-    font-size: 1rem;
-  }
-
-  .header-options {
-    display: none;
-  }
-
-  .carousel-img {
-    width: 500px;
-  }
-}
-
-@media screen and (width < 1246px) {
-  .page-container {
-    width: 100%;
-  }
-
-  .shopping-cart {
-    width: 550px;
-  }
-} */
