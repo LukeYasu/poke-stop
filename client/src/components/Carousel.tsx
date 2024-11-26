@@ -30,13 +30,17 @@ export function Carousel() {
   }
   return (
     <div className="w-full flex justify-center carousel">
-      <button onClick={handlePrev}>{'<'}</button>
+      <button className="carousel-button" onClick={handlePrev}>
+        <img className="invert" src="left-arrow.png" />
+      </button>
       <img
         className="carousel-img cursor-pointer"
         src={carouselImages[imgIndex].src}
         onClick={handleClick}
       />
-      <button onClick={handleNext}>{'>'}</button>
+      <button className="carousel-button" onClick={handleNext}>
+        <img className="invert" src="right-arrow.png" />
+      </button>
     </div>
   );
 }
