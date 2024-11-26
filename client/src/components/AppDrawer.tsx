@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useUser } from './useUser';
-
+/* Is only visible on mobile view */
 export function AppDrawer() {
   const { toggleDrawer, drawerOpen } = useUser();
   return (
