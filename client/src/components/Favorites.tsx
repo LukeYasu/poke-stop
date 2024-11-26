@@ -37,7 +37,7 @@ export function Favorites() {
         Favorites
       </div>
       <div className="page-container">
-        <div className="h-full flex">
+        <div className="h-full flex flex-wrap">
           {items.length !== 0 ? (
             items.map((item) => <CatalogCards key={item.itemId} item={item} />)
           ) : (

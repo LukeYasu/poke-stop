@@ -10,7 +10,9 @@ export function Consumables() {
     async function fetchItems() {
       try {
         const result = await getItems();
-        const filteredItems = result.filter((i) => i.itemType === 'consumable');
+        const filteredItems = result.filter(
+          (i) => i.itemType === 'consumable' || i.itemType === 'evo stone'
+        );
         setConsumables(filteredItems);
       } catch (err) {
         setError(err);

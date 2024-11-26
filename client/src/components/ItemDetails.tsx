@@ -46,6 +46,9 @@ export function ItemDetails() {
         try {
           const item = await getItem(+itemId);
           setItem(item);
+          favItemIds.includes(+itemId)
+            ? setIsFavorite(true)
+            : setIsFavorite(false);
         } catch (err) {
           setError(err);
           console.error(err);
@@ -56,7 +59,7 @@ export function ItemDetails() {
       }
     }
     fetchItem();
-  }, [itemId, cachedFn]);
+  }, [itemId, cachedFn, favItemIds]);
 
   if (isLoading) return <>Loading...</>;
   if (error) {
@@ -120,7 +123,7 @@ export function ItemDetails() {
           className="border-2 details-img bg-white details-img"
         />
         <div>
-          {favItemIds.includes(item.itemId) && user ? (
+          {isFavorite && user ? (
             <img
               className="details-star p-1"
               src="/star-solid.png"
