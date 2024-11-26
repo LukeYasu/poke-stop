@@ -1,4 +1,4 @@
-## Poke Stop
+# Poke Stop
 
 A web application for Pokémon trainers who want want to purchase items for their Pokémon
 
@@ -20,7 +20,7 @@ Utilized technologies: Typescript, React, Node, Express, PostgreSQL, CSS, Tailwi
 ![Kapture 2024-11-25 at 16 12 10](https://github.com/user-attachments/assets/1c77408d-7650-4638-b868-1b4c7337dc67)
 
 
-# Stretch Features to Implement
+## Stretch Features to Implement
 - Sliding cards that display a certain category of item
 - smooth transition carousel
 - Incorperating Stripe
