@@ -25,7 +25,7 @@ export function CartItems({ cartItems }: Props) {
         item.quantity ? (
           <div
             key={item.itemId}
-            className="flex items-center justify-between bg-white m-2 rounded-md">
+            className="flex items-center justify-between bg-white m-2 rounded-md ">
             <img
               src={'/' + item?.photoUrl}
               className="bg-white rounded-md m-2 border-2 border-slate-200 cart-image"
