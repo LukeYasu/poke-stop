@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useUser } from './useUser';
 
 type AuthData = {
@@ -14,7 +14,6 @@ type User = {
 
 export function UserAccBox() {
   const { handleSignIn } = useUser();
-  const navigate = useNavigate();
 
   async function handleGuest() {
     try {
@@ -29,7 +28,6 @@ export function UserAccBox() {
       }
       const { user, token } = (await res.json()) as AuthData;
       handleSignIn(user, token);
-      navigate('/');
     } catch (err) {
       alert(`Error signing in: ${err}`);
     }

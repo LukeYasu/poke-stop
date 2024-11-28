@@ -89,7 +89,7 @@ body {
 }
 
 .card {
-  filter: drop-shadow(-10px 10px 4px lightgray);
+  box-shadow: -10px 10px 7px rgba(0, 0, 0, 0.135);
   background-color: white;
 }
 
@@ -162,7 +162,7 @@ body {
 }
 
 .details-img {
-  filter: drop-shadow(-10px 10px 4px lightgray);
+  box-shadow: -10px 10px 7px rgba(0, 0, 0, 0.135);
 }
 
 .burger {

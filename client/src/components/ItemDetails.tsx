@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { deleteFavorites, getItem, insertFavorites } from '../lib/data';
 import { Item } from './Catalog';
 import { useCallback, useEffect, useState } from 'react';
@@ -6,6 +6,7 @@ import { useCart } from './useCart';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useUser } from './useUser';
 import { useFav } from './useFav';
+import { RelatedItems } from './RelatedItems';
 
 export function ItemDetails() {
   const { itemId } = useParams();
@@ -170,6 +171,11 @@ export function ItemDetails() {
             className="border-black bg-slate-200 m-1 p-1 rounded">
             Add to Favorites
           </button>
+        </div>
+        <div className="mt-16">
+          <Link to={'/items/' + item.itemId}>
+            {<RelatedItems itemId={item.itemId} />}
+          </Link>
         </div>
       </div>
     </div>

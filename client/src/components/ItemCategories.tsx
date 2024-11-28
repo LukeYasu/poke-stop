@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Item } from './Catalog';
-import { CatalogCards } from './CatalogCards';
+import { ItemCard } from './ItemCard';
 
 type Props = {
   items: Item[];
@@ -65,7 +65,7 @@ export function ItemCategories({ items }: Props) {
         <div className="flex flex-wrap justify-center">
           {filteredItems.length !== 0 ? (
             filteredItems.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
+              <ItemCard key={item.itemId} item={item} />
             ))
           ) : (
             <div>No Matching Items</div>

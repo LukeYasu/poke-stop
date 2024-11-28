@@ -12,9 +12,10 @@ type Props = {
   item: Item;
 };
 
-export function CatalogCards({ item }: Props) {
+export function ItemCard({ item }: Props) {
   const [tag, setTag] = useState('none');
   const [sale, setSale] = useState(false);
+
   const cardTag = setTagVer(tag, sale);
   const salePriceRender = toggleSalePrice(item);
   const itemQuantity = toggleItemQuantity(item);
@@ -41,7 +42,7 @@ export function CatalogCards({ item }: Props) {
       setIsFavorite(false);
     }
     if (!user) setIsFavorite(false);
-  }, []);
+  }, [item.cardTag, item.itemId, item.salePrice, user]);
 
   async function handleFavorite(e: React.MouseEvent) {
     try {
