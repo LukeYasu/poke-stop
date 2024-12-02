@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getItems, Item } from '../lib/data';
-import { CatalogCards } from './CatalogCards';
+import { ItemCard } from './ItemCard';
 import '../App.css';
 
 export function Catalog() {
@@ -37,10 +37,10 @@ export function Catalog() {
           <h1 className="text-3xl mb-4 border-b-2 border-black">catalog</h1>
           <div className="flex flex-wrap justify-center">
             {items.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
+              <ItemCard key={item.itemId} item={item} />
             ))}
             {items.map((item) => (
-              <CatalogCards key={item.itemId} item={item} />
+              <ItemCard key={item.itemId} item={item} />
             ))}
           </div>
         </div>

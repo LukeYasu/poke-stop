@@ -6,6 +6,7 @@ import { useCart } from './useCart';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useUser } from './useUser';
 import { useFav } from './useFav';
+import { RelatedItems } from './RelatedItems';
 
 export function ItemDetails() {
   const { itemId } = useParams();
@@ -171,6 +172,7 @@ export function ItemDetails() {
             Add to Favorites
           </button>
         </div>
+        <div className="mt-16">{<RelatedItems itemId={item.itemId} />}</div>
       </div>
     </div>
   );

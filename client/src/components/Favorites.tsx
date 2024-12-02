@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CatalogCards } from './CatalogCards';
+import { ItemCard } from './ItemCard';
 import { Item, readFavorites } from '../lib/data';
 import { useUser } from './useUser';
 
@@ -39,7 +39,7 @@ export function Favorites() {
       <div className="page-container">
         <div className="h-full flex flex-wrap">
           {items.length !== 0 ? (
-            items.map((item) => <CatalogCards key={item.itemId} item={item} />)
+            items.map((item) => <ItemCard key={item.itemId} item={item} />)
           ) : (
             <div className="m-4">No Favorites</div>
           )}

@@ -11,43 +11,59 @@ export function Header() {
 
   return (
     <div>
-      <div className="header">
-        <div className="page-container flex items-center">
-          <div className="w-40 flex justify-center">
-            <img onClick={toggleDrawer} src="/burger.webp" className="burger" />
-            {<AppDrawer />}
-            <div
-              onClick={toggleDrawer}
-              className={
-                drawerOpen ? 'sc-bg ad-bg-open' : 'sc-bg sc-bg-close hidden'
-              }></div>
-          </div>
-          <div className="w-full flex h-20 items-center justify-between">
-            <Link to={'/'}>
-              <div className="w-46">
-                <img className="h-14 rounded-2xl" src="/logo.png" />
+      <div className="">
+        <div className="header page-container flex items-center">
+          <div className="w-2/3 flex justify-start items-center">
+            <div className="flex justify-center">
+              <img
+                onClick={toggleDrawer}
+                src="/burger.webp"
+                className="burger"
+              />
+              {<AppDrawer />}
+              <div
+                onClick={toggleDrawer}
+                className={
+                  drawerOpen ? 'sc-bg ad-bg-open' : 'sc-bg sc-bg-close hidden'
+                }></div>
+            </div>
+            <div className="w-full flex h-20 items-center justify-between">
+              <div>
+                <Link to={'/'}>
+                  <div className="w-46">
+                    <img className="h-14 rounded-2xl m-2" src="/logo.png" />
+                  </div>
+                </Link>
               </div>
-            </Link>
-            <Link to={'/all-items'}>
-              <div className="text-lg text-white header-options h-20 flex items-center">
-                All Items
+              <div>
+                <Link to={'/all-items'}>
+                  <div className="text-lg text-white header-options h-20 flex items-center m-1">
+                    All Items
+                  </div>
+                </Link>
               </div>
-            </Link>
-            <Link to={'/capture-balls'}>
-              <div className="text-lg text-white header-options h-20 flex items-center">
-                Capture Balls
+              <div>
+                <Link to={'/capture-balls'}>
+                  <div className="text-lg text-white header-options h-20 flex items-center m-1">
+                    Capture Balls
+                  </div>
+                </Link>
               </div>
-            </Link>
-            <Link to={'/consumables'}>
-              <div className="text-lg text-white header-options h-20 flex items-center">
-                Consumables
+              <div>
+                <Link to={'/consumables'}>
+                  <div className="text-lg text-white header-options h-20 flex items-center m-1">
+                    Consumables
+                  </div>
+                </Link>
               </div>
-            </Link>
-            <Link to={'/power-ups'}>
-              <div className="text-lg text-white header-options h-20 flex items-center">
-                Power Ups
+              <div>
+                <Link to={'/power-ups'}>
+                  <div className="text-lg text-white header-options h-20 flex items-center m-1">
+                    Power Ups
+                  </div>
+                </Link>
               </div>
-            </Link>
+            </div>
           </div>
           <div className="col-third cart">
             <div className="flex flex-col text-white cursor-default text-orange-300">
@@ -82,8 +98,8 @@ export function Header() {
             {<Cart onClick={toggleOpen} items={cart} />}
           </div>
         </div>
+        <Outlet />
       </div>
-      <Outlet />
     </div>
   );
 }
