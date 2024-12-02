@@ -1,13 +1,15 @@
 # Poke Stop
 
-A web application for Pokémon trainers who want want to purchase items for their Pokémon
+A mock e-commerce site for Pokémon trainers who want want to purchase items for their Pokémon
 
-I wanted to do this project because I wanted to create a full stack application that can display products in a meaningful and effective way to customers by providing them with many options and information about the product when you first open the page. I wanted to replicate something similar to a real e-commerce as they also provide you with lots of information up front. 
+I wanted to do this project because I wanted to create a full stack application that can display products in a meaningful and effective way to customers by providing them with many options and information about the product when you first open the page. I wanted to replicate something similar to a real e-commerce site as they also provide you with lots of information up front. 
 
-http://ec2-3-141-120-131.us-east-2.compute.amazonaws.com/
+Live Site: http://ec2-3-141-120-131.us-east-2.compute.amazonaws.com/
 
 Utilized technologies: Typescript, React, Node, Express, PostgreSQL, CSS, Tailwind, HTML
 
+
+## Features
 - User can browse through a catalog of Pokémon items
 - User can browse different item categories 
 - User can use a search and filter to find certain items
@@ -21,10 +23,10 @@ Utilized technologies: Typescript, React, Node, Express, PostgreSQL, CSS, Tailwi
 
 
 ## Stretch Features to Implement
-- Sliding cards that display a certain category of item
+- Card slider that display a certain category of item
 - smooth transition carousel
 - Incorperating Stripe
-- Displaying similar items under the items details page
+- Displaying related items under the items details page
 
 1. Install dependencies with `npm install`
 2. create a database using `createdb PokeStop`
