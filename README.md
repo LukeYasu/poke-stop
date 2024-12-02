@@ -10,6 +10,7 @@ Utilized technologies: Typescript, React, Node, Express, PostgreSQL, CSS, Tailwi
 
 
 ## Features
+- User can view image carousel
 - User can browse through a catalog of Pokémon items
 - User can browse different item categories 
 - User can use a search and filter to find certain items
