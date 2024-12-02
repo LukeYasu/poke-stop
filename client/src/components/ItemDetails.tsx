@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { deleteFavorites, getItem, insertFavorites } from '../lib/data';
 import { Item } from './Catalog';
 import { useCallback, useEffect, useState } from 'react';
@@ -172,11 +172,7 @@ export function ItemDetails() {
             Add to Favorites
           </button>
         </div>
-        <div className="mt-16">
-          <Link to={'/items/' + item.itemId}>
-            {<RelatedItems itemId={item.itemId} />}
-          </Link>
-        </div>
+        <div className="mt-16">{<RelatedItems itemId={item.itemId} />}</div>
       </div>
     </div>
   );

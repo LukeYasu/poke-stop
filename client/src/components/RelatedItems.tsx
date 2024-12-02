@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getItem, getItems, Item } from '../lib/data';
 import { toggleItemQuantity } from './tagFunctions';
+import { Link } from 'react-router-dom';
 
 type Props = {
   itemId: number;
@@ -22,24 +23,30 @@ export function RelatedItems({ itemId }: Props) {
     }
     fetchItems();
   }, [itemId]);
-  if (items) {
-    if (item?.itemType === 'capture ball') {
-      return (
-        <div className="flex overflow-scroll border-2">
-          {items?.map((item) =>
-            item.itemType === 'capture ball' ? (
-              <div>
-                <img src={'/' + item.photoUrl} className="h-16" />
-                <div className="absolute w-2">{toggleItemQuantity(item)}</div>
+  if (item?.itemType === 'capture ball') {
+    return (
+      <div className="flex overflow-y-scroll border-2">
+        {items?.map((item) => {
+          if (item.itemType === 'capture ball') {
+            return (
+              <div className="h-16">
+                <Link to={'/items/' + item.itemId}>
+                  <img src={'/' + item.photoUrl} className="h-16" />
+                  <div>
+                    {toggleItemQuantity(item) && item.quantity > 1 ? (
+                      <div className="relative bg-slate-100 rounded border-2 h-6 w-6 leading-5 text-center bottom-7 left-9">
+                        {item.quantity}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </Link>
               </div>
-            ) : (
-              <></>
-            )
-          )}
-        </div>
-      );
-    }
-  } else {
-    <>womp</>;
+            );
+          }
+        })}
+      </div>
+    );
   }
 }
