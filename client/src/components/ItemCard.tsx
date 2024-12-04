@@ -42,7 +42,7 @@ export function ItemCard({ item }: Props) {
       setIsFavorite(false);
     }
     if (!user) setIsFavorite(false);
-  }, [item.cardTag, item.itemId, item.salePrice, user]);
+  }, []);
 
   async function handleFavorite(e: React.MouseEvent) {
     try {
