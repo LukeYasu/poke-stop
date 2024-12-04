@@ -1,6 +1,6 @@
 # Poke Stop
 
-A mock e-commerce site for Pokémon trainers who want want to purchase items for their Pokémon
+A mock e-commerce site utilizing the PERN stack that is for Pokémon trainers who want want to purchase items for their Pokémon
 
 I wanted to do this project because I wanted to create a full stack application that can display products in a meaningful and effective way to customers by providing them with many options and information about the product when you first open the page. I wanted to replicate something similar to a real e-commerce site as they also provide you with lots of information up front. 
 
