@@ -4,10 +4,19 @@ import { useCart } from './useCart';
 import { useUser } from './useUser';
 import { UserAccBox } from './UserAccBox';
 import { AppDrawer } from './AppDrawer';
+// import { useEffect, useState } from 'react';
 
 export function Header() {
   const { cart, toggleOpen } = useCart();
   const { user, toggleUserBox, drawerOpen, toggleDrawer } = useUser();
+  // const [cartNum, setCartNum] = useState(0);
+
+  // useEffect(() => {
+  //   for (let i = 0; i < cart.length; i++) {
+  //     const cartNumber = cart[i].quantity;
+  //     setCartNum(cartNumber);
+  //   }
+  // }, [cart]);
 
   return (
     <div>
