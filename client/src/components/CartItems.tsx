@@ -32,8 +32,8 @@ export function CartItems({ cartItems }: Props) {
               className="bg-white rounded-md m-2 border-2 border-slate-200 cart-image"
             />
             <div className="flex flex-col">
-              <div className="text-2xl">{item?.name}</div>
-              <div className="text-xl">
+              <div className="cart-items-title">{item?.name}</div>
+              <div className="cart-items-price">
                 &nbsp;&#8381;
                 {item.salePrice
                   ? item.salePrice * item.quantity
@@ -42,7 +42,7 @@ export function CartItems({ cartItems }: Props) {
             </div>
             <div className="flex items-center">
               <button
-                className="border-black bg-slate-200 m-1 w-8 h-8 leading-3"
+                className="border-black bg-slate-200 m-1 cart-items-button "
                 onClick={() => {
                   if (item.quantity > 1) {
                     addToCart(item, -1);
@@ -52,7 +52,7 @@ export function CartItems({ cartItems }: Props) {
               </button>
               <div className="cart-item-count-text">count: {item.quantity}</div>
               <button
-                className="border-black bg-slate-200 m-1 w-8 h-8 leading-3"
+                className="border-black bg-slate-200 m-1 cart-items-button"
                 onClick={() => {
                   addToCart(item, 1);
                 }}>
