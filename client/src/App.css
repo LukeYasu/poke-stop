@@ -14,6 +14,10 @@ body {
   background-color: #54afff;
 }
 
+.header-trainer-name {
+  font-size: 1.125rem;
+}
+
 .logo {
   color: orange;
   background-color: #adadad;
@@ -141,8 +145,8 @@ body {
 
 .details-count {
   position: relative;
-  right: 100px;
-  top: 400px;
+  right: 470px;
+  top: 20px;
 }
 
 .details-star {
@@ -218,6 +222,21 @@ body {
   width: 100vw;
   background-color: black;
   opacity: 50%;
+}
+
+.cart-items-title {
+  font-size: 1.5rem;
+}
+
+.cart-items-price {
+  font-size: 1.25rem;
+}
+
+.cart-items-button {
+  height: 2rem;
+  width: 2rem;
+  line-height: 0;
+  font-size: 1.5rem;
 }
 
 .cart-item-count-text {

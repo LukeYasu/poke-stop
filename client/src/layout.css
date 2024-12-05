@@ -191,8 +191,25 @@ body {
     display: block;
   }
 
+  .header-trainer-name {
+    font-size: 0.9rem;
+  }
+
   .shopping-cart {
     width: 400px;
+  }
+
+  .cart-items-title {
+    font-size: 1rem;
+  }
+
+  .cart-items-price {
+    font-size: 1rem;
+  }
+
+  .cart-items-button {
+    height: 1.5rem;
+    width: 1.5rem;
   }
 
   .cart-image {
@@ -204,7 +221,8 @@ body {
   }
 
   .details-count {
-    top: 120px;
+    /* top: 120px; */
+    right: 220px;
   }
 
   .delete-button {
