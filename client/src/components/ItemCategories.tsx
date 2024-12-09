@@ -37,29 +37,31 @@ export function ItemCategories({ items }: Props) {
   return (
     <div className="flex w-full justify-center">
       <div className="page-container">
-        <form>
+        <form className="flex items-center flex-wrap justify-center">
           <input
             type="text"
             placeholder="Search"
             ref={inputRef}
             className="w-60 h-10 border-2 mt-8 mb-8 rounded p-2"
             onChange={handleSearch}></input>
-          <label htmlFor="filter" className="m-2 text-lg ml-4">
-            Filter
-          </label>
-          <select
-            name="filter"
-            className="border-2 border-black rounded w-40 h-10"
-            ref={filterRef}
-            onChange={handleSearch}>
-            <option>All</option>
-            <option>Sale</option>
-            <option>New</option>
-            <option>Best Sellers</option>
-            <option>Bundles</option>
-            <option>Price Low to High</option>
-            <option>Price High to Low</option>
-          </select>
+          <div className="flex">
+            <label htmlFor="filter" className="m-2 text-lg ml-4">
+              Filter
+            </label>
+            <select
+              name="filter"
+              className="border-2 border-black rounded w-40 h-10"
+              ref={filterRef}
+              onChange={handleSearch}>
+              <option>All</option>
+              <option>Sale</option>
+              <option>New</option>
+              <option>Best Sellers</option>
+              <option>Bundles</option>
+              <option>Price Low to High</option>
+              <option>Price High to Low</option>
+            </select>
+          </div>
         </form>
         <h1 className="text-3xl mb-4 border-b-2 border-black">All Items</h1>
         <div className="flex flex-wrap justify-center">

@@ -7,6 +7,8 @@ import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useUser } from './useUser';
 import { useFav } from './useFav';
 import { RelatedItems } from './RelatedItems';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function ItemDetails() {
   const { itemId } = useParams();
@@ -47,6 +49,7 @@ export function ItemDetails() {
         try {
           const item = await getItem(+itemId);
           setItem(item);
+          setCount(1);
           favItemIds.includes(+itemId)
             ? setIsFavorite(true)
             : setIsFavorite(false);
@@ -116,7 +119,7 @@ export function ItemDetails() {
   }
 
   return (
-    <div className="flex justify-evenly items-center mt-24">
+    <div className="flex details-orientation justify-evenly items-center mt-24">
       <div className="flex">
         <img
           src={'/' + item.photoUrl}
@@ -125,15 +128,15 @@ export function ItemDetails() {
         />
         <div>
           {isFavorite && user ? (
-            <img
-              className="details-star p-1"
-              src="/star-solid.png"
+            <FontAwesomeIcon
+              icon={faStar}
+              className="details-star text-yellow-300"
               onClick={handleFavorite}
             />
           ) : (
-            <img
-              className="details-star"
-              src="/star.png"
+            <FontAwesomeIcon
+              icon={faStar}
+              className="details-star text-stone-200"
               onClick={handleFavorite}
             />
           )}
@@ -142,7 +145,7 @@ export function ItemDetails() {
           <div className="details-count">{itemQuantity}</div>
         </div>
       </div>
-      <div className="flex flex-col justify-center w-1/2">
+      <div className="flex flex-col justify-center details-content">
         <div className="relative right-1.5">{cardTag}</div>
         <div className="text-5xl">{item.name}</div>
         <div className="text-3xl">{salePriceRender}</div>
