@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getItems, Item } from '../lib/data';
 import { ItemCard } from './ItemCard';
 import '../App.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 export function Catalog() {
   const [items, setItems] = useState<Item[]>([]);

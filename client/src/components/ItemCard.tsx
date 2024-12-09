@@ -8,6 +8,9 @@ import { useCart } from './useCart';
 import { useUser } from './useUser';
 import { useFav } from './useFav';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
 type Props = {
   item: Item;
 };
@@ -88,15 +91,15 @@ export function ItemCard({ item }: Props) {
         </div>
         <div className="favorite-star-ref">
           {isFavorite ? (
-            <img
-              className="favorite-star p-1"
-              src="/star-solid.png"
+            <FontAwesomeIcon
+              icon={faStar}
+              className="favorite-star text-yellow-300"
               onClick={handleFavorite}
             />
           ) : (
-            <img
-              className="favorite-star"
-              src="/star.png"
+            <FontAwesomeIcon
+              icon={faStar}
+              className="favorite-star text-stone-200"
               onClick={handleFavorite}
             />
           )}

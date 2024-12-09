@@ -4,20 +4,16 @@ import { useCart } from './useCart';
 import { useUser } from './useUser';
 import { UserAccBox } from './UserAccBox';
 import { AppDrawer } from './AppDrawer';
-// import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faStar,
+  faUser,
+  faCartShopping,
+} from '@fortawesome/free-solid-svg-icons';
 
 export function Header() {
   const { cart, toggleOpen } = useCart();
   const { user, toggleUserBox, drawerOpen, toggleDrawer } = useUser();
-  // const [cartNum, setCartNum] = useState(0);
-
-  // useEffect(() => {
-  //   for (let i = 0; i < cart.length; i++) {
-  //     const cartNumber = cart[i].quantity;
-  //     setCartNum(cartNumber);
-  //   }
-  // }, [cart]);
-
   return (
     <div>
       <div className="">
@@ -88,15 +84,15 @@ export function Header() {
               )}
             </div>
             <Link to={'/favorites'}>
-              <img src="../star.png" className="star invert" />
+              <FontAwesomeIcon icon={faStar} className="text-white star" />
             </Link>
             <div tabIndex={0} onClick={toggleUserBox}>
-              <img src="../user.png" className="user invert" />
+              <FontAwesomeIcon icon={faUser} className="text-white user" />
             </div>
             <div>{<UserAccBox />}</div>
-            <img
-              src="../cart.png"
-              className="cart invert cursor-pointer"
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              className="text-white cart"
               onClick={toggleOpen}
             />
             <div className="cart-count-ref">

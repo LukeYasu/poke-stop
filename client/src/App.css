@@ -143,6 +143,10 @@ body {
   bottom: 50px;
 }
 
+.details-content {
+  width: 50%;
+}
+
 .details-count {
   position: relative;
   right: 470px;
@@ -161,8 +165,7 @@ body {
 
 .delete-button {
   position: relative;
-  bottom: 80px;
-  right: 20px;
+  left: 350px;
 }
 
 .details-img {
