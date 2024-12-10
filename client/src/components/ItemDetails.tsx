@@ -119,7 +119,7 @@ export function ItemDetails() {
   }
 
   return (
-    <div className="flex details-orientation justify-evenly items-center border-2">
+    <div className="flex details-orientation justify-evenly items-center">
       <div className="flex">
         <img
           src={'/' + item.photoUrl}
