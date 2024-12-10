@@ -10,7 +10,7 @@ type Props = {
 export function RelatedItemsMap({ item, items }: Props) {
   if (item?.itemType === 'consumable') {
     return (
-      <div className="flex flex-row flex-wrap border-2 items-center">
+      <div className="flex flex-row flex-wrap border-2 items-center max-w-fit">
         {items?.map((mapItem) => {
           if (mapItem.itemType === 'consumable') {
             return (
@@ -46,7 +46,7 @@ export function RelatedItemsMap({ item, items }: Props) {
   }
   if (item?.itemType === 'evo stone') {
     return (
-      <div className="flex flex-row flex-wrap border-2 items-center w-full">
+      <div className="flex flex-row flex-wrap border-2 items-center max-w-fit">
         {items?.map((mapItem) => {
           if (mapItem.itemType === 'evo stone') {
             return (
@@ -82,7 +82,7 @@ export function RelatedItemsMap({ item, items }: Props) {
   }
   if (item?.itemType === 'capture ball') {
     return (
-      <div className="flex flex-row flex-wrap border-2 items-center w-full">
+      <div className="flex flex-row flex-wrap border-2 items-center max-w-fit">
         {items?.map((mapItem) => {
           if (mapItem.itemType === 'capture ball') {
             return (
@@ -118,7 +118,7 @@ export function RelatedItemsMap({ item, items }: Props) {
   }
   if (item?.itemType === 'power up') {
     return (
-      <div className="flex flex-row flex-wrap border-2 items-center w-full">
+      <div className="flex flex-row flex-wrap border-2 items-center max-w-fit">
         {items?.map((mapItem) => {
           if (mapItem.itemType === 'power up') {
             return (
