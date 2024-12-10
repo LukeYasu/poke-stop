@@ -143,6 +143,10 @@ body {
   bottom: 50px;
 }
 
+.details-orientation {
+  height: 100vh;
+}
+
 .details-content {
   width: 50%;
 }
