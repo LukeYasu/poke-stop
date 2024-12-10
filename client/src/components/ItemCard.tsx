@@ -1,7 +1,6 @@
 import { type Item } from './Catalog';
 import '../App.css';
 import React, { useEffect, useState } from 'react';
-import { deleteFavorites, insertFavorites } from '../lib/data';
 import { Link } from 'react-router-dom';
 import { setTagVer, toggleItemQuantity, toggleSalePrice } from './tagFunctions';
 import { useCart } from './useCart';
@@ -24,10 +23,8 @@ export function ItemCard({ item }: Props) {
   const itemQuantity = toggleItemQuantity(item);
 
   const { toggleOpen, addToCart } = useCart();
-  const [isFavorite, setIsFavorite] = useState(false);
   const { user } = useUser();
-  const { favItemIds } = useFav();
-  const { getFavIds } = useFav();
+  const { favItemIds, toggleFav } = useFav();
   const { toggleUserBox, userBoxOpen } = useUser();
 
   useEffect(() => {
@@ -39,33 +36,20 @@ export function ItemCard({ item }: Props) {
     if (item.salePrice !== null) {
       setSale(true);
     }
-    if (favItemIds.includes(item.itemId)) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
-    if (!user) setIsFavorite(false);
-  }, []);
+  }, [item.cardTag, item.salePrice]);
 
   async function handleFavorite(e: React.MouseEvent) {
     try {
       e.preventDefault();
       if (user) {
-        getFavIds();
-        if (isFavorite) {
-          setIsFavorite(false);
-          await deleteFavorites(item.itemId);
-        } else {
-          setIsFavorite(true);
-          await insertFavorites(item.itemId);
-        }
+        toggleFav(item.itemId);
       } else {
         if (!userBoxOpen) {
           toggleUserBox();
         }
       }
     } catch (err) {
-      throw new Error(`Error: ${err}`);
+      console.error(`Error: ${err}`);
     }
   }
 
@@ -90,19 +74,15 @@ export function ItemCard({ item }: Props) {
           <div>{cardTag}</div>
         </div>
         <div className="favorite-star-ref">
-          {isFavorite ? (
-            <FontAwesomeIcon
-              icon={faStar}
-              className="favorite-star text-yellow-300"
-              onClick={handleFavorite}
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faStar}
-              className="favorite-star text-stone-200"
-              onClick={handleFavorite}
-            />
-          )}
+          <FontAwesomeIcon
+            icon={faStar}
+            className={`favorite-star ${
+              favItemIds.includes(item.itemId)
+                ? 'text-yellow-300'
+                : 'text-stone-200'
+            }`}
+            onClick={handleFavorite}
+          />
         </div>
         <img className="p-2 card-img" src={item.photoUrl} />
         <div className="item-count-ref">
